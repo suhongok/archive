@@ -1,0 +1,213 @@
+{
+  "main": {
+    "id": "7805d326d1b13b0e",
+    "type": "split",
+    "children": [
+      {
+        "id": "37e3e46c0b0f4c1f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e1736370340b72ac",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "그래프 뷰"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "59f61d22cb50743c",
+    "type": "split",
+    "children": [
+      {
+        "id": "9b4c47237f8cd3d4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3802b9273a9a6cc7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "94811e94c0997fed",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "14d630277bf50cd2",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "북마크"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "cb1bafa0c93a7bb3",
+    "type": "split",
+    "children": [
+      {
+        "id": "c1193fb17ec7b39c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c27cb1e19c2fdc9b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "people/README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "README 의 백링크"
+            }
+          },
+          {
+            "id": "376d29e4f2dfa111",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "people/README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "README 의 나가는 링크"
+            }
+          },
+          {
+            "id": "b6cbc60bc3e64825",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "56b21133f0a2748e",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "모든 속성"
+            }
+          },
+          {
+            "id": "27d74103f84dfd7c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "people/README.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "README 의 개요"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "bases:새 베이스 생성하기": false
+    }
+  },
+  "active": "e1736370340b72ac",
+  "lastOpenFiles": [
+    "jobs/allturn/업무일지_11월_17일회의.md",
+    "people/지근혁.md",
+    "people/김진수.md",
+    "jobs/allturn/기술_개발_항목.md",
+    "people/README.md",
+    "people/김철.md",
+    "people/김기선.md",
+    "people/옥태화.md",
+    "people/목록.md",
+    "people/오정심.md",
+    "people/조해창.md",
+    "people/이창석.md",
+    "people/유도형.md",
+    "people/김예일.md",
+    "people/김광호.md",
+    "people/옥해준.md",
+    "people/이기대.md",
+    "people/유장준.md",
+    "jobs/allturn/README.md",
+    "jobs/allturn/ESP32_USB_JSON_통신.md",
+    "jobs/allturn/올턴_회사_분석.md",
+    "jobs/allturn/업무일지_12월.md",
+    "jobs/allturn/라즈베리파이_Hailo8_카메라인식.md",
+    "diary/06_개인_일지및계획.md",
+    "diary/README.md",
+    "README.md",
+    "study",
+    "people"
+  ]
+}
