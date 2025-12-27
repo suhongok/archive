@@ -1,6 +1,7 @@
 # 만난 사람들 (People Network)
 
 개인적으로 만난 사람들과의 관계, 경험, 특징을 기록한 폴더입니다.
+업데이트 시 참조링크: https://www.notion.so/suhong86/74da43db631845648226645f8b48c6db?v=7b795d6460264a9284f7653bb4ab74b8&source=copy_link 
 
 ## 📂 파일 구조
 
