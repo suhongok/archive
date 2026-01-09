@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "jobs/allturn/올턴_언론홍보자료_메카넘_피지컬AI.md",
+                "file": "diary/06_개인_일지및계획.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "올턴_언론홍보자료_메카넘_피지컬AI"
+              "title": "06_개인_일지및계획"
+            }
+          },
+          {
+            "id": "3779c751327a0eac",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -183,38 +198,45 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "e1736370340b72ac",
+  "active": "3802b9273a9a6cc7",
   "lastOpenFiles": [
+    "무제.canvas",
+    "무제.base",
     "무제 2.canvas",
     "무제 1.canvas",
-    "무제.base",
-    "2026-01-09.md",
+    "study/ros2-study/06_ros2_QnA.md",
+    "study/Embeded/esp32s3_board_error.md",
+    "study/Embeded",
+    "jobs/pi-node_setting_ubuntu.md",
+    "jobs/jetson_agx_orin_gui_recovery.md",
     "jobs/allturn/한국건설기계연구원_미팅_브레인스토밍.md",
-    "무제.canvas",
+    "jobs/allturn/올턴미래사업계획서.md",
+    "jobs/allturn/올턴_투자제안서_2026_print.html",
+    "jobs/allturn/올턴_투자제안서_2026.md",
+    "jobs/allturn/올턴_투자제안서_2026.html",
     "jobs/allturn/올턴_언론홍보자료_메카넘_피지컬AI.md",
+    "jobs/allturn/올턴_기업가치_산정_print.html",
+    "jobs/allturn/올턴_기업가치_산정.md",
     "jobs/allturn/메카넘ai_지게차.md",
-    "jobs/allturn/업무일지_11월_17일회의.md",
-    "people/지근혁.md",
-    "people/김진수.md",
-    "jobs/allturn/기술_개발_항목.md",
-    "people/README.md",
-    "people/김철.md",
-    "people/김기선.md",
-    "people/옥태화.md",
-    "people/목록.md",
-    "people/오정심.md",
-    "people/조해창.md",
-    "people/이창석.md",
-    "people/유도형.md",
-    "people/김예일.md",
-    "people/김광호.md",
-    "people/옥해준.md",
-    "people/이기대.md",
-    "people/유장준.md",
-    "jobs/allturn/README.md",
-    "jobs/allturn/ESP32_USB_JSON_통신.md",
-    "jobs/allturn/올턴_회사_분석.md",
-    "study",
-    "people"
+    "jobs/allturn/mecanum 고소작업대 개발기획/📘.docx",
+    "jobs/allturn/mecanum 고소작업대 개발기획/📘 레이저 용접기 교육자료.docx",
+    "jobs/allturn/mecanum 고소작업대 개발기획/자이로와 메카넘휠을 활용한 안전한 고소작업차 개발 발표 스크립트.docx",
+    "jobs/allturn/mecanum 고소작업대 개발기획/자이로와 메카넘휠을 활용한 넘어지지 않는 고소작업차 개발.docx",
+    "jobs/allturn/mecanum 고소작업대 개발기획/안전한 고소작업차 개발 발표.pdf",
+    "jobs/allturn/mecanum 고소작업대 개발기획/mecanum_고소작업대_종합개발기획서.md",
+    "jobs/allturn/mecanum 고소작업대 개발기획/mecanum_고소작업대_개발기획서_심사용.md",
+    "jobs/allturn/mecanum 고소작업대 개발기획/mecanum_고소작업대_개발기획_상세.md",
+    "jobs/allturn/CLAUDE.md",
+    "2026-01-09.md",
+    "study/ros2-study/README.md",
+    "study/ros2-study/05_CMake_캐시_메커니즘.md",
+    "study/ros2-study/04_콜백_방식_동작_원리.md",
+    "study/ros2-study/02_spin_vs_spin_once.md",
+    "study/ros2-study/03_비동기_서비스_완료_확인.md",
+    "study/ros2-study/01_empty_service_client_분석.md",
+    "jobs/로봇팔제작.md",
+    "jobs/로봇팔 제작 ar4.md",
+    "jobs/로봇팔 제작 - 모터 배선 .md",
+    "jobs/로봇팔 제어 연습 adeept.md"
   ]
 }
