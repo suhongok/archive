@@ -11,10 +11,14 @@
             "id": "e1736370340b72ac",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "그래프 뷰"
+              "type": "markdown",
+              "state": {
+                "file": "jobs/allturn/올턴_언론홍보자료_메카넘_피지컬AI.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "올턴_언론홍보자료_메카넘_피지컬AI"
             }
           }
         ]
@@ -181,6 +185,14 @@
   },
   "active": "e1736370340b72ac",
   "lastOpenFiles": [
+    "무제 2.canvas",
+    "무제 1.canvas",
+    "무제.base",
+    "2026-01-09.md",
+    "jobs/allturn/한국건설기계연구원_미팅_브레인스토밍.md",
+    "무제.canvas",
+    "jobs/allturn/올턴_언론홍보자료_메카넘_피지컬AI.md",
+    "jobs/allturn/메카넘ai_지게차.md",
     "jobs/allturn/업무일지_11월_17일회의.md",
     "people/지근혁.md",
     "people/김진수.md",
@@ -202,11 +214,6 @@
     "jobs/allturn/README.md",
     "jobs/allturn/ESP32_USB_JSON_통신.md",
     "jobs/allturn/올턴_회사_분석.md",
-    "jobs/allturn/업무일지_12월.md",
-    "jobs/allturn/라즈베리파이_Hailo8_카메라인식.md",
-    "diary/06_개인_일지및계획.md",
-    "diary/README.md",
-    "README.md",
     "study",
     "people"
   ]

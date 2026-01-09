@@ -4,107 +4,77 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a **documentation and business archive repository** for Allturn (올턴), a Korean company founded in 2023 that develops mecanum wheel-based mobile robots and elevated work platforms. All documentation is in Korean.
+**문서/아카이브 저장소** - 올턴(Allturn)의 사업 기록, 기술 사양, 업무일지를 보관합니다. 2023년 설립된 메카넘휠 기반 이동로봇 및 고소작업대 개발 회사입니다.
 
-**This repository contains NO source code** - it is purely for documentation, business planning, technical specifications, and work logs.
+**소스 코드 없음** - 빌드, 테스트, 실행 명령이 없는 순수 문서 저장소입니다.
 
 ## Repository Structure
 
-The repository is flat with markdown documents at the root level, plus one subdirectory:
-
-- **Root level**: Technical specifications, work logs, business documents, branding materials
-- **mecanum 고소작업대 개발기획/**: Development planning documents for mecanum-based elevated work platforms (includes PDFs and Word documents)
+```
+/                           # 루트: 마크다운 문서들
+├── mecanum 고소작업대 개발기획/  # 개발기획서 (docx, pdf)
+└── .claude/                # Claude 설정
+```
 
 ## Key Documents
 
-### Core Business Documents
-- **README.md** - Overview of work logs, company status, and technical development roadmap
-- **올턴_회사_분석.md** - Company business model, organization, technology strategy, project status
-- **올턴_투자제안서_2026.md** - Investment proposal for 2026
-- **올턴_기업가치_산정.md** - Company valuation document
-- **올턴미래사업계획서.md** - Future business plan
-- **기술_개발_항목.md** - Technical development items (3 major projects)
+### 핵심 비즈니스
+| 문서 | 내용 |
+|------|------|
+| `올턴_회사_분석.md` | 비즈니스 모델, 조직, 기술 전략 |
+| `올턴_투자제안서_2026.md` | 2026년 투자 제안 |
+| `올턴_기업가치_산정.md` | 기업가치 산정 |
+| `기술_개발_항목.md` | 진행 중인 기술 과제 (4개) |
 
-### Technical Specifications
-- **ESP32_USB_JSON_통신.md** - Allturn USB NDJSON Control Protocol v1 specification for ESP32-S3
-- **ESP32 485통신.md** - ESP32 RS-485 communication implementation
-- **라즈베리파이_Hailo8_카메라인식.md** - Raspberry Pi 5 + Hailo-8 AI accelerator + camera recognition (completed project)
-- **메카넘 플렛폼 제어 로직 다이어그램 1.06v.md** - Mecanum platform control logic diagram
+### 기술 사양
+| 문서 | 내용 |
+|------|------|
+| `ESP32_USB_JSON_통신.md` | **Allturn USB NDJSON Control Protocol v1** - 핵심 통신 프로토콜 |
+| `메카넘 플렛폼 제어 로직 다이어그램 1.06v.md` | 제어 로직 |
+| `라즈베리파이_Hailo8_카메라인식.md` | Hailo-8 AI 가속기 프로젝트 (완료) |
 
-### Work Logs (업무일지)
-- **업무일지_12월.md** - December work logs with sales targets and meetings
-- **업무일지_11월_[날짜]회의.md** - November meeting notes
+### AI/엣지 컴퓨팅 실험
+- `halio-8기반 영상처리 llm on 라즈베리파이 테스트.md`
+- `jetson nano 구매 및 ai 기능 추가.md`
+- `jetson orin nano llm사용시도..md`
 
-### Product Development
-- **dc 모터 메카넘휠 - ps4 컨트롤러 제어.md** - DC motor mecanum wheel PS4 controller control
-- **ESP32 메카넘 로봇 - 사람 추종 및 제어 고도화.md** - ESP32 mecanum robot person following
-- **메카넘휠 지게차 사람인지 경보장치 & following .md** - Person detection warning device for mecanum wheel forklift
-
-### Branding and Products
-- **ATIDrive 브랜딩 .md** - ATIDrive brand materials
-- **메카넘휠 브랜딩.md** - Mecanum wheel branding
-- **ATlift(Mecanum Forklift feat. ATIDRIVE).md** - ATlift product documentation
+### 업무일지
+- `업무일지_12월.md`, `업무일지_11월_[날짜]회의.md`
+- `한국건설기계연구원_미팅_브레인스토밍.md` - 2026년 1월 연구과제 미팅
 
 ## Company Context
 
-- **Founded**: 2023
-- **CEO**: 이대표 (automotive background)
-- **Business**: Mecanum wheel-based mobile robot development and sales
-- **Teams**: Laser sales team + Development team
-- **Major Project**: 100M KRW research project for rough-terrain mecanum wheel design (completion: April 2026)
-- **Sales Target**: 300 units annually (distributor basis)
-
-## Technology Roadmap
-
-```
-Phase 1: Electrical control
-    ↓
-Phase 2: Digital control system (current)
-    ↓
-Phase 3: AI-integrated control (in progress)
-    ↓
-Phase 4: Fully autonomous driving
-```
-
-## Current Development Priorities (2025-2026)
-
-1. **ESP32-S3 Native USB JSON Communication** - cmd_vel standard protocol for mecanum wheel robot control
-2. **Mecanum Wheel Control System Enhancement** - Transitioning from Phase 2 to Phase 3 (AI integration)
-3. **Cybertruck AI Feature Integration** - Planning stage for mecanum wheel-based platform
-
-## Hardware Stack
-
-- **Microcontroller**: ESP32-S3 (Native USB, JSON protocol)
-- **AI Edge Device**: Raspberry Pi 5 + Hailo-8 AI accelerator (26 TOPS)
-- **Camera**: Raspberry Pi Camera V3 (12MP, 4K 30fps)
-- **Motor Control**: DC motors, stepper motors for mecanum wheels
-- **Communication**: USB (NDJSON), RS-485
+- **설립**: 2023년
+- **주요 프로젝트**: 험지전용 메카넘휠 R&D (1억원, 2026년 4월 완료 예정)
+- **기술 단계**: Phase 2 (디지털 제어) → Phase 3 (AI 통합) 전환 중
 
 ## Communication Protocol
 
-The company uses **Allturn USB NDJSON Control Protocol v1** for mecanum wheel control:
+**Allturn USB NDJSON Control Protocol v1** - 메카넘휠 제어용:
 
 ```json
-{
-  "cmd": "vel",
-  "linear_x": 0.5,
-  "linear_y": 0.0,
-  "angular_z": 0.3,
-  "timestamp": 1703338020
-}
+{"cmd": "vel", "linear_x": 0.5, "linear_y": 0.0, "angular_z": 0.3}
 ```
 
-Supported commands: `vel`, `stop`, `status`, `calibrate`
+명령: `vel`, `stop`, `status`, `calibrate`
 
-## External Resources
+메카넘휠 공식:
+```
+FL = linear_x + linear_y + angular_z
+FR = linear_x - linear_y - angular_z
+RL = linear_x - linear_y + angular_z
+RR = linear_x + linear_y - angular_z
+```
 
-- **Notion Workspace**: https://www.notion.so/suhong86/861b3256eb86487598e09fc1af3d5fb4?v=bc276a9a05624c4b9b4d94d1c9c58ac6
-- Latest Notion entries include company development methods, meeting notes, and protocol specifications
+## Hardware Stack
+
+- **MCU**: ESP32-S3 (Native USB, NDJSON)
+- **AI**: Raspberry Pi 5 + Hailo-8 (26 TOPS) / Jetson Nano (실험)
+- **통신**: USB, RS-485
 
 ## Notes for Claude
 
-- All documents are in **Korean** - translations may be needed for non-Korean speakers
-- This is an **archive/documentation repository** - there is no code to build, test, or run
-- When asked to work with this codebase, focus on document organization, content analysis, translation, or documentation creation
-- The company is in active development with regular meetings recorded in 업무일지 files
-- Business documents contain sensitive information about company valuation and investment proposals
+- 모든 문서는 **한국어** - 번역 작업 시 기술 용어 원문 유지
+- 문서 작업 중심: 정리, 분석, 번역, 신규 문서 작성
+- `업무일지_*.md` 파일로 회의 기록 추적 가능
+- 투자/기업가치 문서는 민감 정보 포함
