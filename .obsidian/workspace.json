@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "jobs/allturn/올턴_언론홍보자료_메카넘_피지컬AI.md",
+                "file": "diary/06_개인_일지및계획.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "올턴_언론홍보자료_메카넘_피지컬AI"
+              "title": "06_개인_일지및계획"
+            }
+          },
+          {
+            "id": "3779c751327a0eac",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -183,38 +198,46 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "e1736370340b72ac",
+  "active": "3779c751327a0eac",
   "lastOpenFiles": [
-    "무제 2.canvas",
-    "무제 1.canvas",
-    "무제.base",
-    "2026-01-09.md",
-    "jobs/allturn/한국건설기계연구원_미팅_브레인스토밍.md",
+    "jobs/README.md",
+    "jobs/README.md.tmp.8135.1767999566718",
+    "tools/reorganize_jobs.py",
+    "tools/reorganize_jobs_auto.py",
+    "tools",
+    "study/ros2/neuronbot2_slam_test.md",
+    "jobs/이전업무/다오코리아/\n층간소음 양상 분석 및 소음방지 매트 수요 전망\n.md",
+    "jobs/이전업무/다오코리아/다오코리아 - 블로그 관리.md",
+    "jobs/이전업무/다오코리아/다오코리아 - 홈페이지 관리.md",
+    "jobs/이전업무/록시스/라즈베리파이 우분투 vnc접속.md",
+    "jobs/이전업무/록시스/라즈베리파이 vlc 카메라 3대 제어.md",
+    "jobs/이전업무/록시스/라우터 usim 설정 외부망 설정 vpn, lte 사용, wireguard.md",
+    "jobs/이전업무/록시스/라즈베리파이 부팅시 바로 ssh 접속하기 .md",
+    "jobs/이전업무/록시스/라즈베리파이 rasp 서버 카메라 스트리밍.md",
+    "jobs/이전업무/록시스/라즈베리파이 데쉬보드 다른 node-red dashboard 불러오기.md",
+    "jobs/이전업무/록시스/라즈베리파이 node-red bash쉘 명령실행.md",
+    "jobs/이전업무/록시스/농업 토지(농업진흥구역) 관련조사.md",
+    "jobs/이전업무/록시스/구글 코렙 활용 이미지 검출 모델 훈련.md",
+    "jobs/이전업무/록시스/과수 인식률 관련 논문 조사.md",
+    "jobs/이전업무/록시스/노지 스마트팜 자동물꼬관련 특허, 제로윈택.md",
+    "jobs/이전업무/록시스/로봇팔 제작 - 모터 배선 .md",
+    "jobs/이전업무/록시스/로봇팔 개발 계획.md",
+    "jobs/이전업무/록시스/로봇팔 관련 미팅.md",
+    "jobs/이전업무/록시스/농업용 자재 구매 관련   (비닐, 온풍기, 분무기, 파이프).md",
+    "jobs/이전업무/록시스/디딤돌 추가 피드백관련.md",
+    "jobs/이전업무/록시스/농산물 시장조사.md",
+    "jobs/이전업무/록시스/로봇팔 구매관련 문의.md",
+    "jobs/이전업무/록시스/농업용 운반고리 레일용 이동식방제기.md",
+    "jobs/이전업무/록시스/딸기와 방울토마토 재배 환경비교.md",
+    "jobs/이전업무/록시스/네트워크 공부.md",
+    "jobs/현재업무/allturn/올턴_기업가치_산정_print.html",
+    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/📘.docx",
+    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/📘 레이저 용접기 교육자료.docx",
+    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/자이로와 메카넘휠을 활용한 안전한 고소작업차 개발 발표 스크립트.docx",
+    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/자이로와 메카넘휠을 활용한 넘어지지 않는 고소작업차 개발.docx",
+    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/안전한 고소작업차 개발 발표.pdf",
     "무제.canvas",
-    "jobs/allturn/올턴_언론홍보자료_메카넘_피지컬AI.md",
-    "jobs/allturn/메카넘ai_지게차.md",
-    "jobs/allturn/업무일지_11월_17일회의.md",
-    "people/지근혁.md",
-    "people/김진수.md",
-    "jobs/allturn/기술_개발_항목.md",
-    "people/README.md",
-    "people/김철.md",
-    "people/김기선.md",
-    "people/옥태화.md",
-    "people/목록.md",
-    "people/오정심.md",
-    "people/조해창.md",
-    "people/이창석.md",
-    "people/유도형.md",
-    "people/김예일.md",
-    "people/김광호.md",
-    "people/옥해준.md",
-    "people/이기대.md",
-    "people/유장준.md",
-    "jobs/allturn/README.md",
-    "jobs/allturn/ESP32_USB_JSON_통신.md",
-    "jobs/allturn/올턴_회사_분석.md",
-    "study",
-    "people"
+    "무제 2.canvas",
+    "무제 1.canvas"
   ]
 }
