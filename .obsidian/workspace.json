@@ -25,14 +25,10 @@
             "id": "3779c751327a0eac",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "README"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "그래프 뷰"
             }
           }
         ],
@@ -200,7 +196,25 @@
   },
   "active": "3779c751327a0eac",
   "lastOpenFiles": [
+    "무제 1.canvas",
+    "2026-01-14.md",
+    "무제.base",
+    "무제.canvas",
+    "jobs/현재업무/allturn/올턴_언론홍보자료_메카넘_피지컬AI_v1.0.md",
+    "jobs/현재업무/allturn/올턴_기업가치_산정_v1.0.md",
+    "jobs/현재업무/allturn/올턴 - 메카트넘휠 스탭모터 제어 프로젝트 .md",
+    "jobs/현재업무/allturn/업무일지_12월.md",
+    "jobs/현재업무/allturn/농기계 인증.md",
+    "jobs/현재업무/allturn/메카넘휠 전용 LLM모델 올리기.md",
+    "jobs/현재업무/allturn/메카넘 플렛폼 제어 로직 다이어그램 1.06v.md",
+    "jobs/현재업무/allturn/메카넘휠 브랜딩_v1.0.md",
+    "jobs/현재업무/allturn/메카넘ai_지게차_v1.0.md",
+    "jobs/현재업무/allturn/메카넘휠 지게차 사람인지 경보장치 & following .md",
+    "study/ros2/README.md",
     "jobs/README.md",
+    "jobs/현재업무/allturn/한국건설기계연구원_미팅_브레인스토밍.md",
+    "jobs/현재업무/allturn/지게차 메카넘휠 컨트롤 박스 배선.md",
+    "README.md",
     "jobs/README.md.tmp.8135.1767999566718",
     "tools/reorganize_jobs.py",
     "tools/reorganize_jobs_auto.py",
@@ -214,30 +228,11 @@
     "jobs/이전업무/록시스/라우터 usim 설정 외부망 설정 vpn, lte 사용, wireguard.md",
     "jobs/이전업무/록시스/라즈베리파이 부팅시 바로 ssh 접속하기 .md",
     "jobs/이전업무/록시스/라즈베리파이 rasp 서버 카메라 스트리밍.md",
-    "jobs/이전업무/록시스/라즈베리파이 데쉬보드 다른 node-red dashboard 불러오기.md",
-    "jobs/이전업무/록시스/라즈베리파이 node-red bash쉘 명령실행.md",
-    "jobs/이전업무/록시스/농업 토지(농업진흥구역) 관련조사.md",
-    "jobs/이전업무/록시스/구글 코렙 활용 이미지 검출 모델 훈련.md",
-    "jobs/이전업무/록시스/과수 인식률 관련 논문 조사.md",
-    "jobs/이전업무/록시스/노지 스마트팜 자동물꼬관련 특허, 제로윈택.md",
-    "jobs/이전업무/록시스/로봇팔 제작 - 모터 배선 .md",
-    "jobs/이전업무/록시스/로봇팔 개발 계획.md",
-    "jobs/이전업무/록시스/로봇팔 관련 미팅.md",
-    "jobs/이전업무/록시스/농업용 자재 구매 관련   (비닐, 온풍기, 분무기, 파이프).md",
-    "jobs/이전업무/록시스/디딤돌 추가 피드백관련.md",
-    "jobs/이전업무/록시스/농산물 시장조사.md",
-    "jobs/이전업무/록시스/로봇팔 구매관련 문의.md",
-    "jobs/이전업무/록시스/농업용 운반고리 레일용 이동식방제기.md",
-    "jobs/이전업무/록시스/딸기와 방울토마토 재배 환경비교.md",
-    "jobs/이전업무/록시스/네트워크 공부.md",
     "jobs/현재업무/allturn/올턴_기업가치_산정_print.html",
     "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/📘.docx",
     "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/📘 레이저 용접기 교육자료.docx",
     "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/자이로와 메카넘휠을 활용한 안전한 고소작업차 개발 발표 스크립트.docx",
     "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/자이로와 메카넘휠을 활용한 넘어지지 않는 고소작업차 개발.docx",
-    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/안전한 고소작업차 개발 발표.pdf",
-    "무제.canvas",
-    "무제 2.canvas",
-    "무제 1.canvas"
+    "무제 2.canvas"
   ]
 }
