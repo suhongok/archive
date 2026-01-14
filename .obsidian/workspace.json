@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "jobs/현재업무/allturn/제품_라인업_회의자료_2026-01.md",
+                "file": "jobs/현재업무/allturn/라즈베리파이5 우분투 및 ROS설치.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "제품_라인업_회의자료_2026-01"
+              "title": "라즈베리파이5 우분투 및 ROS설치"
             }
           }
         ],
@@ -198,9 +198,18 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "3779c751327a0eac",
+  "active": "3802b9273a9a6cc7",
   "lastOpenFiles": [
+    "jobs/현재업무/allturn/OdinLift 개발/allturn odin 지게차 개발 진행.md",
+    "jobs/현재업무/allturn/OdinLift 개발/메카넘ai_지게차_v1.0.md",
+    "jobs/현재업무/allturn/메카넘휠 지게차 사람인지 경보장치 & following .md",
+    "jobs/현재업무/allturn/ATlift(Mecanum Forklift  feat. ATIDRIVE).md",
+    "jobs/현재업무/allturn/농기계 인증.md",
+    "jobs/현재업무/allturn/기업부설 연구소 등록관련.md",
+    "jobs/현재업무/allturn/기술_개발_항목.md",
+    "jobs/현재업무/allturn/고소작업자 개발 노트.md",
     "jobs/현재업무/allturn/제품_라인업_회의자료_2026-01.md",
+    "jobs/현재업무/allturn/OdinLift 개발",
     "무제 1.canvas",
     "2026-01-14.md",
     "무제.base",
@@ -209,12 +218,9 @@
     "jobs/현재업무/allturn/올턴_기업가치_산정_v1.0.md",
     "jobs/현재업무/allturn/올턴 - 메카트넘휠 스탭모터 제어 프로젝트 .md",
     "jobs/현재업무/allturn/업무일지_12월.md",
-    "jobs/현재업무/allturn/농기계 인증.md",
     "jobs/현재업무/allturn/메카넘휠 전용 LLM모델 올리기.md",
     "jobs/현재업무/allturn/메카넘 플렛폼 제어 로직 다이어그램 1.06v.md",
     "jobs/현재업무/allturn/메카넘휠 브랜딩_v1.0.md",
-    "jobs/현재업무/allturn/메카넘ai_지게차_v1.0.md",
-    "jobs/현재업무/allturn/메카넘휠 지게차 사람인지 경보장치 & following .md",
     "study/ros2/README.md",
     "jobs/README.md",
     "jobs/현재업무/allturn/한국건설기계연구원_미팅_브레인스토밍.md",
@@ -228,16 +234,10 @@
     "jobs/이전업무/다오코리아/\n층간소음 양상 분석 및 소음방지 매트 수요 전망\n.md",
     "jobs/이전업무/다오코리아/다오코리아 - 블로그 관리.md",
     "jobs/이전업무/다오코리아/다오코리아 - 홈페이지 관리.md",
-    "jobs/이전업무/록시스/라즈베리파이 우분투 vnc접속.md",
-    "jobs/이전업무/록시스/라즈베리파이 vlc 카메라 3대 제어.md",
-    "jobs/이전업무/록시스/라우터 usim 설정 외부망 설정 vpn, lte 사용, wireguard.md",
-    "jobs/이전업무/록시스/라즈베리파이 부팅시 바로 ssh 접속하기 .md",
-    "jobs/이전업무/록시스/라즈베리파이 rasp 서버 카메라 스트리밍.md",
     "jobs/현재업무/allturn/올턴_기업가치_산정_print.html",
     "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/📘.docx",
     "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/📘 레이저 용접기 교육자료.docx",
     "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/자이로와 메카넘휠을 활용한 안전한 고소작업차 개발 발표 스크립트.docx",
-    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/자이로와 메카넘휠을 활용한 넘어지지 않는 고소작업차 개발.docx",
     "무제 2.canvas"
   ]
 }
