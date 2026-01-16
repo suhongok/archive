@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "jobs/현재업무/allturn/라즈베리파이5 우분투 및 ROS설치.md",
+                "file": "jobs/현재업무/allturn/RND과제/디딤돌_2026/파일다운로드_가이드.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "라즈베리파이5 우분투 및 ROS설치"
+              "title": "파일다운로드_가이드"
             }
           }
         ],
@@ -198,9 +198,27 @@
       "bases:새 베이스 생성하기": false
     }
   },
-  "active": "3802b9273a9a6cc7",
+  "active": "3779c751327a0eac",
   "lastOpenFiles": [
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/5. 특화지표 검토요청서_전북지방청.hwp",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/4. 외부기술도입비 현물산정 신청서.hwp",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/3. 중소기업기술개발사업 개인정보 수집이용 동의서.hwp",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/2. 신용상태 조회 정보활용 동의서.hwp",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/1. 연구개발계획서 양식_전북지방청.hwp",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/[붙임 4] 제출서식/5. 특화지표 검토요청서_전북지방청.hwp 복사본",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/[붙임 4] 제출서식/4. 외부기술도입비 현물산정 신청서.hwp 복사본",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/[붙임 4] 제출서식/3. 중소기업기술개발사업 개인정보 수집이용 동의서.hwp 복사본",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/[붙임 4] 제출서식/2. 신용상태 조회 정보활용 동의서.hwp 복사본",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/[붙임 4] 제출서식/1. 연구개발계획서 양식_전북지방청.hwp 복사본",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/[붙임 4] 제출서식/4. 외부기술도입비 현물산정 신청서.hwp",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/올턴_디딤돌_제안서_초안.md",
     "jobs/현재업무/allturn/OdinLift 개발/allturn odin 지게차 개발 진행.md",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/파일다운로드_가이드.md",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/README.md",
+    "jobs/현재업무/allturn/OdinLift 개발/DevLog.md",
+    "jobs/현재업무/allturn/OdinLift 개발/parts.md",
+    "jobs/현재업무/allturn/제품_라인업_회의자료_2026-01.md",
+    "jobs/현재업무/allturn/라즈베리파이5 우분투 및 ROS설치.md",
     "jobs/현재업무/allturn/OdinLift 개발/메카넘ai_지게차_v1.0.md",
     "jobs/현재업무/allturn/메카넘휠 지게차 사람인지 경보장치 & following .md",
     "jobs/현재업무/allturn/ATlift(Mecanum Forklift  feat. ATIDRIVE).md",
@@ -208,11 +226,8 @@
     "jobs/현재업무/allturn/기업부설 연구소 등록관련.md",
     "jobs/현재업무/allturn/기술_개발_항목.md",
     "jobs/현재업무/allturn/고소작업자 개발 노트.md",
-    "jobs/현재업무/allturn/제품_라인업_회의자료_2026-01.md",
-    "jobs/현재업무/allturn/OdinLift 개발",
     "무제 1.canvas",
     "2026-01-14.md",
-    "무제.base",
     "무제.canvas",
     "jobs/현재업무/allturn/올턴_언론홍보자료_메카넘_피지컬AI_v1.0.md",
     "jobs/현재업무/allturn/올턴_기업가치_산정_v1.0.md",
@@ -223,21 +238,6 @@
     "jobs/현재업무/allturn/메카넘휠 브랜딩_v1.0.md",
     "study/ros2/README.md",
     "jobs/README.md",
-    "jobs/현재업무/allturn/한국건설기계연구원_미팅_브레인스토밍.md",
-    "jobs/현재업무/allturn/지게차 메카넘휠 컨트롤 박스 배선.md",
-    "README.md",
-    "jobs/README.md.tmp.8135.1767999566718",
-    "tools/reorganize_jobs.py",
-    "tools/reorganize_jobs_auto.py",
-    "tools",
-    "study/ros2/neuronbot2_slam_test.md",
-    "jobs/이전업무/다오코리아/\n층간소음 양상 분석 및 소음방지 매트 수요 전망\n.md",
-    "jobs/이전업무/다오코리아/다오코리아 - 블로그 관리.md",
-    "jobs/이전업무/다오코리아/다오코리아 - 홈페이지 관리.md",
-    "jobs/현재업무/allturn/올턴_기업가치_산정_print.html",
-    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/📘.docx",
-    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/📘 레이저 용접기 교육자료.docx",
-    "jobs/현재업무/allturn/mecanum 고소작업대 개발기획/자이로와 메카넘휠을 활용한 안전한 고소작업차 개발 발표 스크립트.docx",
     "무제 2.canvas"
   ]
 }
