@@ -25,14 +25,12 @@
             "id": "3779c751327a0eac",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "jobs/현재업무/allturn/RND과제/디딤돌_2026/파일다운로드_가이드.md",
-                "mode": "source",
-                "source": false
+                "file": "jobs/현재업무/allturn/RND과제/디딤돌_2026/공고문/Document Print.pdf"
               },
-              "icon": "lucide-file",
-              "title": "파일다운로드_가이드"
+              "icon": "lucide-file-text",
+              "title": "Document Print"
             }
           }
         ],
@@ -200,20 +198,24 @@
   },
   "active": "3779c751327a0eac",
   "lastOpenFiles": [
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/4. 외부기술도입비 현물산정 신청서.hwp",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/4. 외부기술도입비 현물산정 신청서.html",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/3. 중소기업기술개발사업 개인정보 수집이용 동의서_style.css",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/1. 연구개발계획서 양식_전북지방청.html",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/5. 특화지표 검토요청서_전북지방청_style.css",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/2. 신용상태 조회 정보활용 동의서.hwp",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/5. 특화지표 검토요청서_전북지방청.hwp",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/4. 외부기술도입비 현물산정 신청서_style.css",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/5. 특화지표 검토요청서_전북지방청.html",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/1. 연구개발계획서 양식_전북지방청_style.css",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/[붙임 4] 제출서식/2. 신용상태 조회 정보활용 동의서_style.css",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/IRIS_디딤돌_사업계획서_스마트팜_v3.md",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/IRIS_디딤돌_사업계획서_양식_v2.md",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/5. 특화지표 검토요청서_전북지방청.html",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/5. 특화지표 검토요청서_전북지방청_style.css",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/4. 외부기술도입비 현물산정 신청서.html",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/4. 외부기술도입비 현물산정 신청서_style.css",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/3. 중소기업기술개발사업 개인정보 수집이용 동의서.html",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/3. 중소기업기술개발사업 개인정보 수집이용 동의서_style.css",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/2. 신용상태 조회 정보활용 동의서.html",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/2. 신용상태 조회 정보활용 동의서_style.css",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/1. 연구개발계획서 양식_전북지방청.html",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/1. 연구개발계획서 양식_전북지방청_style.css",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/IRIS_디딤돌_사업계획서_PhysicalAI_v1.md",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/수정사업계획서_Rev4.md",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/IRIS_등록_가이드.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/올턴_디딤돌_제안서_초안.md",
-    "jobs/현재업무/allturn/OdinLift 개발/allturn odin 지게차 개발 진행.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/파일다운로드_가이드.md",
+    "jobs/현재업무/allturn/OdinLift 개발/allturn odin 지게차 개발 진행.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/README.md",
     "jobs/현재업무/allturn/OdinLift 개발/DevLog.md",
     "jobs/현재업무/allturn/OdinLift 개발/parts.md",
@@ -234,10 +236,6 @@
     "jobs/현재업무/allturn/올턴 - 메카트넘휠 스탭모터 제어 프로젝트 .md",
     "jobs/현재업무/allturn/업무일지_12월.md",
     "jobs/현재업무/allturn/메카넘휠 전용 LLM모델 올리기.md",
-    "jobs/현재업무/allturn/메카넘 플렛폼 제어 로직 다이어그램 1.06v.md",
-    "jobs/현재업무/allturn/메카넘휠 브랜딩_v1.0.md",
-    "study/ros2/README.md",
-    "jobs/README.md",
     "무제 2.canvas"
   ]
 }
