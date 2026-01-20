@@ -528,3 +528,74 @@ Odin_lift/
 - ✅ 저속 RPM에서도 0 명령 전송됨
 - ✅ 피드백 불일치 감지 및 재전송 동작
 - ✅ 모터 완전 정지 확인
+
+---
+
+## 2026-01-20: 오른쪽 조이스틱 전진/후진 기능 추가
+
+### 문제점
+
+`bt_controller.cpp`에서 오른쪽 조이스틱의 Y축(`axisRY()`)을 전혀 읽지 않음.
+기존에는 오른쪽 스틱 X축만 읽어서 회전(omega)에만 사용됨.
+
+### 요구사항
+
+- 오른쪽 조이스틱: `|RY| > |RX|` 이면 전진/후진, 아니면 회전
+- 왼쪽 + 오른쪽 스틱 vx 값은 합산 (클램핑으로 과속 방지)
+
+### 해결 방법
+
+#### 1. 오른쪽 Y축 읽기 추가
+
+**파일: `src/bt_controller.cpp`**
+```cpp
+// 오른쪽 스틱 (회전 또는 전진/후진)
+int16_t rx = ctl->axisRX();  // -512 ~ +512
+int16_t ry = ctl->axisRY();  // -512 ~ +512 (상향 음수) ★ 추가
+```
+
+#### 2. 정규화 추가
+
+```cpp
+float normRY = normalizeAxis(-ry, joystickConfig.deadzone);  // Y축 반전 (상향 양수)
+```
+
+#### 3. 조건 분기 및 속도 계산 변경
+
+```cpp
+// 오른쪽 스틱: |RY| > |RX| 이면 전진/후진, 아니면 회전
+float rightVx = 0.0f;
+float rightOmega = 0.0f;
+
+if (fabsf(normRY) > fabsf(normRX)) {
+    // Y축 우세: 전진/후진 모드
+    rightVx = normRY * joystickConfig.maxVx;
+} else {
+    // X축 우세 또는 동일: 회전 모드
+    rightOmega = -normRX * joystickConfig.maxOmega;
+}
+
+// 속도 계산 (왼쪽 + 오른쪽 합산)
+input.vx = normLY * joystickConfig.maxVx + rightVx;
+input.vy = -normLX * joystickConfig.maxVy;
+input.omega = rightOmega;
+```
+
+### 동작 요약
+
+| 입력 | 조건 | 결과 |
+|------|------|------|
+| 오른쪽 스틱 ↑ | `\|RY\| > \|RX\|` | 전진 (vx에 합산) |
+| 오른쪽 스틱 ↓ | `\|RY\| > \|RX\|` | 후진 (vx에 합산) |
+| 오른쪽 스틱 ← | `\|RX\| >= \|RY\|` | 시계방향 회전 |
+| 오른쪽 스틱 → | `\|RX\| >= \|RY\|` | 반시계방향 회전 |
+
+### 변경 파일
+
+| 파일 | 변경 사항 |
+|------|-----------|
+| `src/bt_controller.cpp` | RY축 읽기, normRY 정규화, 조건 분기 및 합산 로직 추가 |
+
+### 빌드 결과
+
+- ✅ 빌드 성공 (RAM: 20.4%, Flash: 8.9%)
