@@ -599,3 +599,203 @@ input.omega = rightOmega;
 ### 빌드 결과
 
 - ✅ 빌드 성공 (RAM: 20.4%, Flash: 8.9%)
+
+### 테스트 결과
+
+- ✅ 오른쪽 스틱 ↑↓ 전진/후진 동작 확인
+- ✅ 오른쪽 스틱 ←→ 회전 동작 유지
+- ✅ 왼쪽 + 오른쪽 스틱 조합 동작 확인
+
+---
+
+## 2026-01-21: 블루투스 컨트롤러 MAC 주소 필터링 구현
+
+### 배경
+
+2개의 ESP32-S3 보드가 각각 특정 블루투스 리모컨에만 연결되도록 MAC 주소 기반 필터링 필요.
+
+### 구현 내용
+
+#### 1. MAC 주소 로깅 기능 추가
+
+**파일: `src/bt_controller.cpp`**
+```cpp
+#include "config.h"
+
+extern "C" {
+#include "bt/uni_bt_allowlist.h"
+}
+
+// onConnectedController() 콜백에 MAC 주소 출력 추가
+ControllerProperties props = ctl->getProperties();
+LOG.printf("[BT] MAC Address: %02X:%02X:%02X:%02X:%02X:%02X\n",
+              props.btaddr[0], props.btaddr[1], props.btaddr[2],
+              props.btaddr[3], props.btaddr[4], props.btaddr[5]);
+```
+
+#### 2. Allowlist 필터링 기능 추가
+
+**파일: `src/bt_controller.cpp`**
+```cpp
+void btControllerSetup() {
+    // ...
+#ifdef ALLOWED_CONTROLLER_MAC
+    bd_addr_t allowed = ALLOWED_CONTROLLER_MAC;
+    uni_bt_allowlist_remove_all();
+    uni_bt_allowlist_add_addr(allowed);
+    uni_bt_allowlist_set_enabled(true);
+    LOG.printf("[BT] Allowlist enabled for MAC: %02X:%02X:%02X:%02X:%02X:%02X\n",
+               allowed[0], allowed[1], allowed[2],
+               allowed[3], allowed[4], allowed[5]);
+#else
+    LOG.println("[BT] Allowlist disabled (any controller can connect)");
+#endif
+    // ...
+}
+```
+
+#### 3. config.h에 MAC 주소 설정 옵션 추가
+
+**파일: `src/config.h`**
+```cpp
+// ============================================
+// Bluetooth Controller Filtering (MAC Address Allowlist)
+// ============================================
+// 보드별 설정:
+// - Odin Lift 보드: 리모컨 1 (F4:6A:D7:9A:E0:4A)
+// - 다른 ESP32 보드: 리모컨 2 (C0:D6:D5:EF:3D:1E)
+#define ALLOWED_CONTROLLER_MAC  {0xF4, 0x6A, 0xD7, 0x9A, 0xE0, 0x4A}
+```
+
+### 사용 방법
+
+1. **MAC 주소 확인**: `ALLOWED_CONTROLLER_MAC` 주석 처리 후 빌드/업로드, 컨트롤러 연결 시 시리얼 모니터에서 MAC 확인
+2. **필터링 활성화**: `config.h`에 확인된 MAC 주소 설정 후 재빌드/업로드
+
+### 확인된 리모컨 MAC 주소
+
+| 리모컨 | MAC 주소 |
+|--------|----------|
+| 리모컨 1 | `F4:6A:D7:9A:E0:4A` |
+| 리모컨 2 | `C0:D6:D5:EF:3D:1E` |
+
+### 변경 파일
+
+| 파일 | 변경 사항 |
+|------|-----------|
+| `src/bt_controller.cpp` | allowlist 헤더 추가, MAC 로깅, allowlist 설정 |
+| `src/config.h` | `ALLOWED_CONTROLLER_MAC` 설정 옵션 추가 |
+
+### 테스트 결과
+
+- ✅ 컨트롤러 연결 시 MAC 주소 출력
+- ✅ 허용된 MAC 주소의 컨트롤러만 연결 성공
+- ✅ 다른 컨트롤러 연결 시도 시 무시됨
+
+---
+
+## 2026-01-21: 구형 RF 리모컨 지원 추가 (진행 중)
+
+### 개요
+
+Allturn 구형 RF 리모컨을 ESP32-S3에 연결하여 REMOTE 모드로 로봇 제어 기능 구현.
+
+### 리모컨 프로토콜 사양
+
+| 항목 | 값 |
+|------|-----|
+| 통신 | UART 38400 baud, 8N1 |
+| 방향 | RX only (수신 전용) |
+| 프레임 | 4바이트 패턴 매칭 |
+| TTL | 150ms (타임아웃 시 정지) |
+
+### 버튼 패턴 매핑
+
+| 패턴 (HEX) | 액션 | 설명 |
+|------------|------|------|
+| `00 18 00 18` | POWER_ON | REMOTE ↔ NEUTRAL 토글 |
+| `00 00 00 00` | ESTOP | 비상정지 → NEUTRAL |
+| `01 88 01 88` | FORWARD | 전진 (60% × speedScale) |
+| `02 88 02 88` | BACKWARD | 후진 (60% × speedScale) |
+| `04 88 04 88` | LEFT | 좌회전 (30% × speedScale) |
+| `08 88 08 88` | RIGHT | 우회전 (30% × speedScale) |
+| `08 48 08 48` | SPEED_UP | 속도 +10% |
+| `04 48 04 48` | SPEED_DOWN | 속도 -10% |
+
+### 모드 우선순위
+
+```
+REMOTE > GAMEPAD > ROS2 > NEUTRAL
+```
+
+- REMOTE 모드에서는 게임패드/JSON 명령 무시
+- 리모컨 power_on 버튼으로 어떤 모드에서든 NEUTRAL로 전환 가능
+
+### 구현 파일
+
+#### 신규 생성
+
+| 파일 | 설명 |
+|------|------|
+| `src/Allturn_Remote_v2.h` | RF 리모컨 드라이버 헤더 |
+| `src/Allturn_Remote_v2.cpp` | UART 수신, 패턴 매칭, 콜백 처리 |
+
+#### 수정
+
+| 파일 | 변경 사항 |
+|------|-----------|
+| `src/config.h` | RC_RX_PIN(GPIO9), RC_BAUD(38400), RC_TTL_MS(150) 추가 |
+| `src/ModeManager.h` | `InputMode::REMOTE` 추가, `enterRemote()`, `toggleByRemoteButton()` |
+| `src/ModeManager.cpp` | REMOTE 모드 전환 로직, onJsonReceived에서 REMOTE 체크 |
+| `src/rtos/rtos_config.h` | `RemoteCmdData` 구조체, `g_remoteQueue` 추가 |
+| `src/rtos/rtos_init.cpp` | `g_remoteQueue` 생성 |
+| `src/rtos/bluepad32_task.cpp` | 리모컨 poll/tick 호출, 콜백 등록, 큐 업데이트 |
+| `src/rtos/command_task.cpp` | REMOTE 모드 처리 (모터 백분율 직접 전달) |
+| `src/sketch.cpp` | `allturn_remote_v2::begin()` 초기화 추가 |
+| `src/CMakeLists.txt` | `Allturn_Remote_v2.cpp` 빌드 대상 추가 |
+
+### 핀 설정
+
+```cpp
+#define RC_RX_PIN       9       // 리모컨 UART RX (GPIO9)
+#define RC_TX_PIN       -1      // TX 미사용 (수신 전용)
+#define RC_BAUD         38400   // 리모컨 통신 속도
+#define RC_TTL_MS       150     // 명령 타임아웃 (ms)
+```
+
+### 빌드 결과
+
+- ✅ 빌드 성공 (RAM: 20.4%, Flash: 8.9%)
+- ✅ 펌웨어 업로드 성공
+
+### 현재 상태
+
+- ⚠️ UART 수신 데이터 없음
+- 리모컨 보드 측 설정 확인 필요 (TX 출력 활성화 여부)
+- GPIO 9 연결 상태 확인 필요
+
+### 디버그 로그 추가
+
+시작 시:
+```
+[Remote] Setting up Serial2 on RX=GPIO9, baud=38400
+[Remote] Serial2 initialized, available=0
+[Remote] Ready on GPIO9 @ 38400 baud
+```
+
+수신 시 (예상):
+```
+[Remote] RX: 0x00 (idx=0)
+[Remote] RX: 0x18 (idx=1)
+[Remote] RX: 0x00 (idx=2)
+[Remote] RX: 0x18 (idx=3)
+[Remote] Frame: 00 18 00 18
+[Remote] POWER_ON pressed
+```
+
+### 다음 단계
+
+- [ ] 리모컨 보드 TX 출력 설정 확인
+- [ ] GPIO 9 배선 확인 (리모컨 TX → ESP32 RX)
+- [ ] 오실로스코프로 신호 확인
+- [ ] 다른 GPIO 핀으로 테스트 (GPIO 9가 특수 용도일 경우)
