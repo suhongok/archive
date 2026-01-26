@@ -1,0 +1,132 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E91E63'}}}%%
+
+flowchart TD
+    subgraph Capture["📷 이미지 캡처"]
+        Camera["Pi Camera"]
+        Schedule["⏰ 스케줄러<br/>1분 간격"]
+        RawImage["🖼️ Raw 이미지<br/>1920x1080"]
+    end
+
+    subgraph Preprocess["🔧 전처리"]
+        Resize["크기 조정<br/>640x480"]
+        Normalize["정규화<br/>0~1"]
+        LightCorrect["조명 보정<br/>히스토그램 균일화"]
+        Crop["관심영역 추출"]
+    end
+
+    subgraph EdgeAI["🤖 엣지 AI 추론 (Raspberry Pi)"]
+        direction TB
+
+        subgraph Detection["객체 탐지"]
+            YOLOv8["YOLOv8n<br/>잎 탐지"]
+            BoundingBox["바운딩 박스<br/>추출"]
+        end
+
+        subgraph Segmentation["세그멘테이션"]
+            UNet["U-Net Lite<br/>잎 영역"]
+            LeafMask["잎 마스크<br/>생성"]
+            AreaCalc["면적 계산<br/>(cm²)"]
+        end
+
+        subgraph ColorAnalysis["색상 분석"]
+            HSVConvert["HSV 변환"]
+            ColorHist["색상 히스토그램"]
+            HealthScore["건강 점수<br/>산출"]
+        end
+
+        subgraph Classification["분류"]
+            MobileNet["MobileNet V3<br/>상태 분류"]
+            Classes["클래스:<br/>정상 | 영양결핍 | 병해 | 팁번"]
+        end
+    end
+
+    subgraph Decision["📊 판단 로직"]
+        Aggregate["결과 종합"]
+        Threshold{"이상 감지?"}
+        Normal["✅ 정상<br/>로컬 저장만"]
+        Abnormal["⚠️ 이상<br/>클라우드 전송"]
+    end
+
+    subgraph CloudAI["☁️ 클라우드 정밀 분석 (AWS)"]
+        S3Upload["S3 업로드"]
+        SageMaker["SageMaker<br/>Endpoint"]
+        DetailedAnalysis["정밀 분석<br/>병해충 종류 식별"]
+        Recommendation["🔔 조치 권고<br/>생성"]
+    end
+
+    subgraph Actions["⚡ 액션"]
+        Logging["📝 로깅<br/>DynamoDB"]
+        Alert["🔔 알림<br/>SNS → 앱"]
+        AutoControl["🔄 자동 제어<br/>환경 조절"]
+        Report["📊 리포트<br/>생성"]
+    end
+
+    subgraph Feedback["🔄 피드백 루프"]
+        DataCollect["학습 데이터<br/>수집"]
+        ModelRetrain["모델 재학습<br/>(주기적)"]
+        ModelDeploy["엣지 배포<br/>(OTA)"]
+    end
+
+    %% 흐름 연결
+    Camera --> Schedule
+    Schedule --> RawImage
+    RawImage --> Resize
+    Resize --> Normalize
+    Normalize --> LightCorrect
+    LightCorrect --> Crop
+
+    Crop --> YOLOv8
+    YOLOv8 --> BoundingBox
+    BoundingBox --> UNet
+    UNet --> LeafMask
+    LeafMask --> AreaCalc
+
+    Crop --> HSVConvert
+    HSVConvert --> ColorHist
+    ColorHist --> HealthScore
+
+    BoundingBox --> MobileNet
+    MobileNet --> Classes
+
+    AreaCalc --> Aggregate
+    HealthScore --> Aggregate
+    Classes --> Aggregate
+
+    Aggregate --> Threshold
+    Threshold -->|No| Normal
+    Threshold -->|Yes| Abnormal
+
+    Normal --> Logging
+    Abnormal --> S3Upload
+    S3Upload --> SageMaker
+    SageMaker --> DetailedAnalysis
+    DetailedAnalysis --> Recommendation
+
+    Recommendation --> Alert
+    Recommendation --> AutoControl
+    Recommendation --> Report
+    Report --> Logging
+
+    %% 피드백
+    Logging --> DataCollect
+    DataCollect --> ModelRetrain
+    ModelRetrain --> ModelDeploy
+    ModelDeploy --> MobileNet
+    ModelDeploy --> YOLOv8
+
+    %% 스타일
+    classDef capture fill:#fff9c4,stroke:#f9a825,stroke-width:2px
+    classDef preprocess fill:#e0f2f1,stroke:#00796b,stroke-width:2px
+    classDef edge fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef cloud fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef action fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef feedback fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+
+    class Camera,Schedule,RawImage capture
+    class Resize,Normalize,LightCorrect,Crop preprocess
+    class YOLOv8,BoundingBox,UNet,LeafMask,AreaCalc,HSVConvert,ColorHist,HealthScore,MobileNet,Classes edge
+    class S3Upload,SageMaker,DetailedAnalysis,Recommendation cloud
+    class Logging,Alert,AutoControl,Report action
+    class DataCollect,ModelRetrain,ModelDeploy feedback
+    class Aggregate,Threshold,Normal,Abnormal decision

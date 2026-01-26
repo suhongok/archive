@@ -1,0 +1,125 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#009688'}}}%%
+
+flowchart TB
+    subgraph Device["📟 디바이스 레이어"]
+        direction LR
+        Sensors["📊 센서<br/>온습도/CO₂/pH/EC"]
+        Camera["📷 카메라"]
+        ESP32["⚡ ESP32"]
+        Actuators["⚙️ 액추에이터"]
+    end
+
+    subgraph Edge["🖥️ 엣지 레이어 (Raspberry Pi)"]
+        direction TB
+        LocalMQTT["📡 로컬 MQTT<br/>Mosquitto"]
+        AIInference["🤖 AI 추론<br/>TensorFlow Lite"]
+        DataBuffer["💾 로컬 버퍼<br/>SQLite"]
+        StreamServer["📺 스트리밍<br/>WebRTC"]
+    end
+
+    subgraph Cloud["☁️ 클라우드 레이어 (AWS)"]
+        direction TB
+
+        subgraph Ingestion["데이터 수집"]
+            IoTCore["AWS IoT Core"]
+            KinesisFirehose["Kinesis Firehose"]
+        end
+
+        subgraph Storage["저장소"]
+            DynamoDB["DynamoDB<br/>실시간 데이터"]
+            S3Raw["S3<br/>Raw Data"]
+            S3Images["S3<br/>이미지"]
+            Timestream["Timestream<br/>시계열"]
+        end
+
+        subgraph Processing["처리"]
+            Lambda["Lambda<br/>이벤트 처리"]
+            SageMaker["SageMaker<br/>AI 학습"]
+            IoTAnalytics["IoT Analytics"]
+        end
+
+        subgraph Services["서비스"]
+            APIGateway["API Gateway"]
+            SNS["SNS<br/>알림"]
+            Cognito["Cognito<br/>인증"]
+        end
+
+        subgraph Visualization["시각화"]
+            QuickSight["QuickSight<br/>대시보드"]
+            Amplify["Amplify<br/>웹앱"]
+        end
+    end
+
+    subgraph User["👤 사용자"]
+        MobileApp["📱 모바일 앱"]
+        WebDashboard["🌐 웹 대시보드"]
+        Notification["🔔 알림"]
+    end
+
+    %% 센서 → ESP32 → Pi
+    Sensors -->|"1초 주기"| ESP32
+    ESP32 -->|"제어 신호"| Actuators
+    ESP32 -->|"UART<br/>5초 주기"| LocalMQTT
+
+    %% 카메라 → Pi
+    Camera -->|"프레임"| AIInference
+    Camera -->|"스트림"| StreamServer
+    AIInference -->|"분석 결과"| LocalMQTT
+    AIInference -->|"이상 감지"| S3Images
+
+    %% Pi → 클라우드
+    LocalMQTT -->|"센서 데이터<br/>MQTT"| IoTCore
+    LocalMQTT -->|"오프라인 저장"| DataBuffer
+    DataBuffer -->|"재연결시 동기화"| IoTCore
+    StreamServer -->|"WebRTC"| MobileApp
+
+    %% IoT Core 라우팅
+    IoTCore -->|"Rules Engine"| Lambda
+    IoTCore -->|"스트림"| KinesisFirehose
+
+    %% 데이터 저장
+    KinesisFirehose -->|"배치 저장"| S3Raw
+    Lambda -->|"실시간"| DynamoDB
+    Lambda -->|"시계열"| Timestream
+    Lambda -->|"알람 조건"| SNS
+
+    %% AI 파이프라인
+    S3Raw -->|"학습 데이터"| SageMaker
+    S3Images -->|"이미지 분석"| SageMaker
+    SageMaker -->|"모델 업데이트"| AIInference
+    S3Raw --> IoTAnalytics
+
+    %% 서비스 레이어
+    DynamoDB --> APIGateway
+    Timestream --> APIGateway
+    IoTAnalytics --> QuickSight
+    APIGateway --> Amplify
+
+    %% 사용자 인터페이스
+    Cognito -->|"인증"| MobileApp
+    Cognito -->|"인증"| WebDashboard
+    Amplify --> WebDashboard
+    APIGateway --> MobileApp
+    QuickSight --> WebDashboard
+    SNS -->|"푸시"| Notification
+
+    %% 양방향 제어
+    MobileApp -->|"제어 명령"| APIGateway
+    APIGateway -->|"명령"| IoTCore
+    IoTCore -->|"Shadow Update"| LocalMQTT
+    LocalMQTT -->|"명령 전달"| ESP32
+
+    %% 스타일
+    classDef device fill:#ffecb3,stroke:#ff8f00,stroke-width:2px
+    classDef edge fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    classDef cloud fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef user fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef storage fill:#e0f2f1,stroke:#00796b,stroke-width:2px
+    classDef process fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+
+    class Sensors,Camera,ESP32,Actuators device
+    class LocalMQTT,AIInference,DataBuffer,StreamServer edge
+    class IoTCore,KinesisFirehose,Lambda,APIGateway,SNS,Cognito cloud
+    class DynamoDB,S3Raw,S3Images,Timestream storage
+    class SageMaker,IoTAnalytics,QuickSight,Amplify process
+    class MobileApp,WebDashboard,Notification user

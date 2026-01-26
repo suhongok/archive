@@ -1,0 +1,114 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#2196F3', 'lineColor': '#1976D2'}}}%%
+
+flowchart TD
+    subgraph WaterSystem["💧 양액 순환 시스템 (NFT/DFT 방식)"]
+        direction TB
+
+        subgraph Tank["🪣 메인 양액 탱크 (10L)"]
+            MainTank["양액 저장소"]
+            LevelSensor["📏 수위 센서"]
+            WaterTempSensor["🌡️ 수온 센서<br/>DS18B20"]
+            WaterHeater["🔥 수중 히터<br/>50W"]
+            Aerator["💨 에어펌프<br/>산소 공급"]
+        end
+
+        subgraph Mixing["🧪 양액 조제부"]
+            pHSensor["🧪 pH 센서"]
+            ECSensor["⚡ EC 센서"]
+            Mixer["🔄 교반기"]
+
+            subgraph Solutions["농축액 탱크"]
+                TankA["A액 탱크<br/>질산칼슘"]
+                TankB["B액 탱크<br/>황산마그네슘"]
+                pHDownTank["pH Down<br/>인산"]
+                pHUpTank["pH Up<br/>수산화칼륨"]
+            end
+        end
+
+        subgraph Pumps["🔄 펌프 시스템"]
+            MainPump["💪 메인 순환펌프<br/>12V DC"]
+            PumpA["💉 A액 펌프<br/>연동펌프"]
+            PumpB["💉 B액 펌프<br/>연동펌프"]
+            pHDownPump["💉 pH Down 펌프"]
+            pHUpPump["💉 pH Up 펌프"]
+            DrainPump["🚰 배수 펌프"]
+        end
+
+        subgraph Cultivation["🌱 재배 베드"]
+            direction LR
+            Inlet["➡️ 양액 유입구"]
+            Channel1["🌱 재배 채널 1"]
+            Channel2["🌱 재배 채널 2"]
+            Roots["🌿 식물 뿌리"]
+            Outlet["⬅️ 양액 배출구"]
+        end
+
+        subgraph Filter["🔍 필터 시스템"]
+            PreFilter["1차 필터<br/>50메시"]
+            MainFilter["2차 필터<br/>100메시"]
+            UVSterilizer["🔆 UV 살균기<br/>(선택)"]
+        end
+    end
+
+    %% 순환 흐름
+    MainTank -->|"양액 공급"| MainPump
+    MainPump -->|"가압"| PreFilter
+    PreFilter --> MainFilter
+    MainFilter --> UVSterilizer
+    UVSterilizer -->|"살균된 양액"| Inlet
+
+    Inlet --> Channel1
+    Inlet --> Channel2
+    Channel1 --> Roots
+    Channel2 --> Roots
+    Roots -->|"영양분 흡수"| Outlet
+    Outlet -->|"중력 배수"| MainTank
+
+    %% 양액 조제
+    TankA -->|"A액"| PumpA
+    TankB -->|"B액"| PumpB
+    pHDownTank --> pHDownPump
+    pHUpTank --> pHUpPump
+
+    PumpA -->|"EC 낮을 때"| Mixer
+    PumpB -->|"EC 낮을 때"| Mixer
+    pHDownPump -->|"pH 높을 때"| Mixer
+    pHUpPump -->|"pH 낮을 때"| Mixer
+    Mixer --> MainTank
+
+    %% 센서 연결
+    LevelSensor -.->|"수위 모니터링"| ESP32["⚡ ESP32"]
+    WaterTempSensor -.->|"수온 모니터링"| ESP32
+    pHSensor -.->|"pH 모니터링"| ESP32
+    ECSensor -.->|"EC 모니터링"| ESP32
+
+    %% 제어 연결
+    ESP32 -.->|"ON/OFF"| MainPump
+    ESP32 -.->|"PWM"| PumpA
+    ESP32 -.->|"PWM"| PumpB
+    ESP32 -.->|"PWM"| pHDownPump
+    ESP32 -.->|"PWM"| pHUpPump
+    ESP32 -.->|"ON/OFF"| WaterHeater
+    ESP32 -.->|"ON/OFF"| Aerator
+    ESP32 -.->|"배수시"| DrainPump
+
+    DrainPump -->|"양액 교체"| Drain["🚿 배수구"]
+
+    %% 원수 보충
+    FreshWater["🚰 원수 탱크"] -->|"수위 낮을 때"| WaterPump["💧 원수 펌프"]
+    WaterPump --> MainTank
+
+    %% 스타일
+    classDef tank fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef pump fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef sensor fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef cultivation fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    classDef filter fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef solution fill:#ffecb3,stroke:#ff8f00,stroke-width:2px
+
+    class MainTank,LevelSensor,WaterTempSensor,WaterHeater,Aerator tank
+    class MainPump,PumpA,PumpB,pHDownPump,pHUpPump,DrainPump,WaterPump pump
+    class pHSensor,ECSensor sensor
+    class Inlet,Channel1,Channel2,Roots,Outlet cultivation
+    class PreFilter,MainFilter,UVSterilizer filter
+    class TankA,TankB,pHDownTank,pHUpTank solution

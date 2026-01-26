@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>3×9m 컨테이너 스마트팜 베드 배치도</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f5f7f0;
+      padding: 30px;
+    }
+    .title {
+      text-align: center;
+      color: #2D5016;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #5D6D4E;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    .main-container {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    /* 평면도 (Top View) */
+    .top-view {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .top-view h3 {
+      color: #2D5016;
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .container-top {
+      width: 560px;
+      height: 260px;
+      border: 3px solid #4A7C23;
+      border-radius: 8px;
+      background: #fafafa;
+      position: relative;
+      display: flex;
+      gap: 6px;
+      padding: 6px;
+    }
+    .bed-set-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border: 2px solid #78909C;
+      border-radius: 6px;
+      padding: 4px 3px;
+      background: rgba(120,144,156,0.1);
+    }
+    .floor-indicator {
+      text-align: center;
+      font-size: 9px;
+      color: #5D6D4E;
+      font-weight: bold;
+      margin-bottom: 1px;
+    }
+    .bed-row-top {
+      display: flex;
+      gap: 2px;
+      justify-content: center;
+      flex: 1;
+    }
+    .bed-top {
+      flex: 1;
+      height: 100%;
+      min-height: 22px;
+      background: linear-gradient(90deg, #7CB342, #8BC34A);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: white;
+      font-weight: bold;
+    }
+    .wall-top {
+      width: 8px;
+      min-height: 22px;
+      background: #78909C;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .aisle-top-h {
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: #777;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 8px,
+        rgba(0,0,0,0.08) 8px,
+        rgba(0,0,0,0.08) 16px
+      );
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .pillar-top {
+      height: 6px;
+      background: #78909C;
+      margin: 1px 0;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .bed-wall-row {
+      display: flex;
+      gap: 2px;
+      flex: 1;
+      align-items: stretch;
+    }
+    .aisle-v {
+      width: 8px;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 5px,
+        rgba(0,0,0,0.08) 5px,
+        rgba(0,0,0,0.08) 10px
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .aisle-v span {
+      writing-mode: vertical-rl;
+      font-size: 7px;
+      color: #999;
+    }
+    .pillar {
+      width: 4px;
+      background: #78909C;
+      border-radius: 2px;
+    }
+    .dimension-h {
+      position: absolute;
+      left: -35px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      font-size: 11px;
+      color: #4A7C23;
+      font-weight: bold;
+    }
+    .dimension-w {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: #4A7C23;
+      font-weight: bold;
+    }
+    .door {
+      position: absolute;
+      right: -3px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 40px;
+      background: #FF9800;
+      border-radius: 0 4px 4px 0;
+    }
+    .door-label {
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 10px;
+      color: #FF9800;
+    }
+    .set-label {
+      position: absolute;
+      bottom: 5px;
+      font-size: 10px;
+      color: #2D5016;
+      font-weight: bold;
+    }
+
+    /* 측면도 (Side View) - 1층 단면 */
+    .side-view {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .side-view h3 {
+      color: #2D5016;
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .container-side {
+      width: 360px;
+      height: 100px;
+      border: 3px solid #4A7C23;
+      border-radius: 8px;
+      background: #fafafa;
+      position: relative;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .floor-cross-section {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+    }
+    .wall-side {
+      width: 8px;
+      height: 60px;
+      background: #78909C;
+      border-radius: 2px;
+    }
+    .bed-cross {
+      width: 28px;
+      height: 50px;
+      background: linear-gradient(180deg, #7CB342 0%, #558B2F 100%);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: white;
+      font-weight: bold;
+    }
+    .aisle-cross {
+      flex: 1;
+      min-width: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7px;
+      color: #999;
+    }
+    .pillar-cross {
+      width: 8px;
+      height: 70px;
+      background: #78909C;
+      border-radius: 2px;
+    }
+    .side-dimension {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: #4A7C23;
+      font-weight: bold;
+    }
+
+    /* 4층 입체 구조 */
+    .layer-view {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: 30px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .layer-view h3 {
+      color: #2D5016;
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .layers-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .single-layer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .layer-number {
+      width: 40px;
+      font-size: 12px;
+      color: #2D5016;
+      font-weight: bold;
+      text-align: right;
+    }
+    .layer-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      padding: 8px;
+      background: rgba(200,230,200,0.2);
+      border-radius: 8px;
+    }
+    .layer-wall {
+      width: 6px;
+      height: 30px;
+      background: #78909C;
+      border-radius: 2px;
+    }
+    .layer-bed {
+      flex: 1;
+      height: 24px;
+      background: linear-gradient(180deg, #7CB342 0%, #558B2F 100%);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: white;
+      font-weight: bold;
+    }
+    .layer-aisle {
+      width: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7px;
+      color: #999;
+    }
+    .layer-pillar {
+      width: 6px;
+      height: 35px;
+      background: #78909C;
+      border-radius: 2px;
+    }
+    .led-bar {
+      height: 4px;
+      background: linear-gradient(90deg, #E91E63, #9C27B0, #3F51B5);
+      border-radius: 2px;
+      box-shadow: 0 0 6px rgba(233,30,99,0.4);
+    }
+    .led-row {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-left: 50px;
+      padding: 2px 8px;
+    }
+    .led-segment {
+      flex: 1;
+      height: 4px;
+      background: linear-gradient(90deg, #E91E63, #9C27B0, #3F51B5);
+      border-radius: 2px;
+      box-shadow: 0 0 6px rgba(233,30,99,0.4);
+    }
+    .led-gap {
+      width: 20px;
+    }
+    .led-pillar-gap {
+      width: 6px;
+    }
+
+    /* 세트 구성 상세 */
+    .set-detail {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: 30px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .set-detail h3 {
+      color: #2D5016;
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .set-3d {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .single-set {
+      text-align: center;
+    }
+    .set-frame {
+      width: 200px;
+      height: 180px;
+      border: 3px solid #78909C;
+      border-radius: 8px;
+      background: #fafafa;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      padding: 8px;
+      gap: 4px;
+    }
+    .floor-row {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .floor-led {
+      height: 4px;
+      background: linear-gradient(90deg, #E91E63, #9C27B0, #3F51B5);
+      border-radius: 2px;
+      margin: 0 5px;
+    }
+    .floor-beds {
+      flex: 1;
+      display: flex;
+      gap: 2px;
+      align-items: center;
+    }
+    .floor-wall {
+      width: 4px;
+      height: 100%;
+      background: #78909C;
+      border-radius: 1px;
+    }
+    .floor-bed {
+      flex: 1;
+      height: 16px;
+      background: linear-gradient(180deg, #7CB342, #558B2F);
+      border-radius: 2px;
+    }
+    .floor-aisle {
+      width: 6px;
+    }
+    .floor-pillar {
+      width: 4px;
+      height: 100%;
+      background: #78909C;
+      border-radius: 1px;
+    }
+    .set-dim {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #4A7C23;
+      font-weight: bold;
+    }
+    .set-info {
+      margin-top: 6px;
+      font-size: 10px;
+      color: #5D6D4E;
+    }
+
+    /* 단일 베드 상세 */
+    .bed-detail {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: 30px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .bed-detail h3 {
+      color: #2D5016;
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .single-bed {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .bed-3d {
+      width: 600px;
+      height: 80px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .bed-surface {
+      width: 500px;
+      height: 60px;
+      background: linear-gradient(135deg, #7CB342 0%, #689F38 100%);
+      border-radius: 8px;
+      position: absolute;
+      bottom: 0;
+      left: 50px;
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .port-container {
+      flex: 1;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .port {
+      width: 16px;
+      height: 16px;
+      background: radial-gradient(circle, #C8E6C9, #81C784);
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7px;
+      color: #2D5016;
+      font-weight: bold;
+    }
+    .bed-dim-w {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      color: #4A7C23;
+      font-weight: bold;
+    }
+    .bed-dim-spacing {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: #E65100;
+      font-weight: bold;
+    }
+
+    /* 범례 */
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #5D6D4E;
+    }
+    .legend-color {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+    }
+    .legend-led {
+      width: 30px;
+      height: 6px;
+      background: linear-gradient(90deg, #E91E63, #9C27B0, #3F51B5);
+      border-radius: 3px;
+    }
+
+    /* 스펙 박스 */
+    .specs {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .spec-box {
+      background: #E8F5E9;
+      padding: 15px 25px;
+      border-radius: 10px;
+      text-align: center;
+      border-left: 4px solid #7CB342;
+    }
+    .spec-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2D5016;
+    }
+    .spec-label {
+      font-size: 11px;
+      color: #5D6D4E;
+      margin-top: 5px;
+    }
+
+    /* 구조 설명 */
+    .structure-note {
+      background: #FFF8E1;
+      border: 1px solid #FFE082;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #5D4037;
+      line-height: 1.6;
+    }
+    .structure-note strong {
+      color: #E65100;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="title">3×9m 컨테이너 스마트팜 베드 배치도</h1>
+  <p class="subtitle">4세트 (9m 길이 방향) × 4층 × 9베드(이동식 레일) = 144베드 / 총 1,872포트 (15cm 간격)</p>
+
+  <div class="main-container">
+    <!-- 평면도 -->
+    <div class="top-view">
+      <h3>📐 평면도 (Top View) - 4세트 배치</h3>
+      <div style="position: relative; padding: 30px 50px 40px 50px;">
+        <div class="container-top">
+          <div class="dimension-h">3m</div>
+          <div class="dimension-w">9m</div>
+          <div class="door"></div>
+          <div class="door-label">출입문</div>
+
+          <!-- 세트 1 -->
+          <div class="bed-set-column">
+            <div class="floor-indicator">세트 1 (이동식)</div>
+            <div class="bed-wall-row">
+              <div class="wall-top"></div>
+              <div class="bed-top">1</div>
+              <div class="bed-top">2</div>
+            </div>
+            <div class="aisle-top-h">← 이동 복도 →</div>
+            <div class="bed-row-top">
+              <div class="bed-top">3</div>
+              <div class="bed-top">4</div>
+              <div class="bed-top">5</div>
+            </div>
+            <div class="pillar-top"></div>
+            <div class="bed-row-top">
+              <div class="bed-top">6</div>
+              <div class="bed-top">7</div>
+            </div>
+            <div class="aisle-top-h">← 복도 →</div>
+            <div class="bed-wall-row">
+              <div class="bed-top">8</div>
+              <div class="bed-top">9</div>
+              <div class="wall-top"></div>
+            </div>
+          </div>
+
+          <!-- 세트 2 -->
+          <div class="bed-set-column">
+            <div class="floor-indicator">세트 2 (이동식)</div>
+            <div class="bed-wall-row">
+              <div class="wall-top"></div>
+              <div class="bed-top">1</div>
+              <div class="bed-top">2</div>
+            </div>
+            <div class="aisle-top-h">← 이동 복도 →</div>
+            <div class="bed-row-top">
+              <div class="bed-top">3</div>
+              <div class="bed-top">4</div>
+              <div class="bed-top">5</div>
+            </div>
+            <div class="pillar-top"></div>
+            <div class="bed-row-top">
+              <div class="bed-top">6</div>
+              <div class="bed-top">7</div>
+            </div>
+            <div class="aisle-top-h">← 복도 →</div>
+            <div class="bed-wall-row">
+              <div class="bed-top">8</div>
+              <div class="bed-top">9</div>
+              <div class="wall-top"></div>
+            </div>
+          </div>
+
+          <!-- 세트 3 -->
+          <div class="bed-set-column">
+            <div class="floor-indicator">세트 3 (이동식)</div>
+            <div class="bed-wall-row">
+              <div class="wall-top"></div>
+              <div class="bed-top">1</div>
+              <div class="bed-top">2</div>
+            </div>
+            <div class="aisle-top-h">← 이동 복도 →</div>
+            <div class="bed-row-top">
+              <div class="bed-top">3</div>
+              <div class="bed-top">4</div>
+              <div class="bed-top">5</div>
+            </div>
+            <div class="pillar-top"></div>
+            <div class="bed-row-top">
+              <div class="bed-top">6</div>
+              <div class="bed-top">7</div>
+            </div>
+            <div class="aisle-top-h">← 복도 →</div>
+            <div class="bed-wall-row">
+              <div class="bed-top">8</div>
+              <div class="bed-top">9</div>
+              <div class="wall-top"></div>
+            </div>
+          </div>
+
+          <!-- 세트 4 -->
+          <div class="bed-set-column">
+            <div class="floor-indicator">세트 4 (이동식)</div>
+            <div class="bed-wall-row">
+              <div class="wall-top"></div>
+              <div class="bed-top">1</div>
+              <div class="bed-top">2</div>
+            </div>
+            <div class="aisle-top-h">← 이동 복도 →</div>
+            <div class="bed-row-top">
+              <div class="bed-top">3</div>
+              <div class="bed-top">4</div>
+              <div class="bed-top">5</div>
+            </div>
+            <div class="pillar-top"></div>
+            <div class="bed-row-top">
+              <div class="bed-top">6</div>
+              <div class="bed-top">7</div>
+            </div>
+            <div class="aisle-top-h">← 복도 →</div>
+            <div class="bed-wall-row">
+              <div class="bed-top">8</div>
+              <div class="bed-top">9</div>
+              <div class="wall-top"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="text-align: center; font-size: 10px; color: #666; margin-top: 10px;">
+        * 평면도는 1층(최하층) 베드 배치를 보여줍니다. 각 세트는 4층 구조입니다.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- 4층 입체 구조 -->
+  <div class="layer-view">
+    <h3>🏗️ 4층 적층 구조 - 이동식 레일 시스템 (세트 1개 기준)</h3>
+    <div class="layers-container">
+      <div class="led-row">
+        <div class="led-segment"></div>
+        <div class="led-gap"></div>
+        <div class="led-segment"></div>
+        <div class="led-pillar-gap"></div>
+        <div class="led-segment"></div>
+        <div class="led-gap"></div>
+        <div class="led-segment"></div>
+      </div>
+      <div class="single-layer">
+        <div class="layer-number">4층</div>
+        <div class="layer-content">
+          <div class="layer-wall"></div>
+          <div class="layer-bed">1</div>
+          <div class="layer-bed">2</div>
+          <div class="layer-aisle">이동</div>
+          <div class="layer-bed">3</div>
+          <div class="layer-bed">4</div>
+          <div class="layer-bed">5</div>
+          <div class="layer-pillar"></div>
+          <div class="layer-bed">6</div>
+          <div class="layer-bed">7</div>
+          <div class="layer-aisle">복도</div>
+          <div class="layer-bed">8</div>
+          <div class="layer-bed">9</div>
+          <div class="layer-wall"></div>
+        </div>
+      </div>
+      <div class="led-row">
+        <div class="led-segment"></div>
+        <div class="led-gap"></div>
+        <div class="led-segment"></div>
+        <div class="led-pillar-gap"></div>
+        <div class="led-segment"></div>
+        <div class="led-gap"></div>
+        <div class="led-segment"></div>
+      </div>
+      <div class="single-layer">
+        <div class="layer-number">3층</div>
+        <div class="layer-content">
+          <div class="layer-wall"></div>
+          <div class="layer-bed">1</div>
+          <div class="layer-bed">2</div>
+          <div class="layer-aisle">이동</div>
+          <div class="layer-bed">3</div>
+          <div class="layer-bed">4</div>
+          <div class="layer-bed">5</div>
+          <div class="layer-pillar"></div>
+          <div class="layer-bed">6</div>
+          <div class="layer-bed">7</div>
+          <div class="layer-aisle">복도</div>
+          <div class="layer-bed">8</div>
+          <div class="layer-bed">9</div>
+          <div class="layer-wall"></div>
+        </div>
+      </div>
+      <div class="led-row">
+        <div class="led-segment"></div>
+        <div class="led-gap"></div>
+        <div class="led-segment"></div>
+        <div class="led-pillar-gap"></div>
+        <div class="led-segment"></div>
+        <div class="led-gap"></div>
+        <div class="led-segment"></div>
+      </div>
+      <div class="single-layer">
+        <div class="layer-number">2층</div>
+        <div class="layer-content">
+          <div class="layer-wall"></div>
+          <div class="layer-bed">1</div>
+          <div class="layer-bed">2</div>
+          <div class="layer-aisle">이동</div>
+          <div class="layer-bed">3</div>
+          <div class="layer-bed">4</div>
+          <div class="layer-bed">5</div>
+          <div class="layer-pillar"></div>
+          <div class="layer-bed">6</div>
+          <div class="layer-bed">7</div>
+          <div class="layer-aisle">복도</div>
+          <div class="layer-bed">8</div>
+          <div class="layer-bed">9</div>
+          <div class="layer-wall"></div>
+        </div>
+      </div>
+      <div class="led-row">
+        <div class="led-segment"></div>
+        <div class="led-gap"></div>
+        <div class="led-segment"></div>
+        <div class="led-pillar-gap"></div>
+        <div class="led-segment"></div>
+        <div class="led-gap"></div>
+        <div class="led-segment"></div>
+      </div>
+      <div class="single-layer">
+        <div class="layer-number">1층</div>
+        <div class="layer-content">
+          <div class="layer-wall"></div>
+          <div class="layer-bed">1</div>
+          <div class="layer-bed">2</div>
+          <div class="layer-aisle">이동</div>
+          <div class="layer-bed">3</div>
+          <div class="layer-bed">4</div>
+          <div class="layer-bed">5</div>
+          <div class="layer-pillar"></div>
+          <div class="layer-bed">6</div>
+          <div class="layer-bed">7</div>
+          <div class="layer-aisle">복도</div>
+          <div class="layer-bed">8</div>
+          <div class="layer-bed">9</div>
+          <div class="layer-wall"></div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align: center; font-size: 11px; color: #666; margin-top: 15px;">
+      1세트 = 4층 × 9베드 = <strong style="color:#2D5016;">36베드</strong> / 36베드 × 13포트 = <strong style="color:#E65100;">468포트</strong>
+    </p>
+  </div>
+
+  <!-- 세트 구성 상세 -->
+  <div class="set-detail">
+    <h3>📦 전체 시설 구성 (4세트 - 이동식 레일 시스템)</h3>
+    <div class="set-3d">
+      <div class="single-set">
+        <div class="set-frame">
+          <div class="floor-row">
+            <div class="floor-led"></div>
+            <div class="floor-beds">
+              <div class="floor-wall"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-aisle"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-pillar"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-aisle"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-wall"></div>
+            </div>
+          </div>
+          <div class="floor-row">
+            <div class="floor-led"></div>
+            <div class="floor-beds">
+              <div class="floor-wall"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-aisle"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-pillar"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-aisle"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-wall"></div>
+            </div>
+          </div>
+          <div class="floor-row">
+            <div class="floor-led"></div>
+            <div class="floor-beds">
+              <div class="floor-wall"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-aisle"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-pillar"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-aisle"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-wall"></div>
+            </div>
+          </div>
+          <div class="floor-row">
+            <div class="floor-led"></div>
+            <div class="floor-beds">
+              <div class="floor-wall"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-aisle"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-pillar"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-aisle"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-bed"></div>
+              <div class="floor-wall"></div>
+            </div>
+          </div>
+        </div>
+        <div class="set-dim">2m(L) × 3m(W) × 1.5m(H)</div>
+        <div class="set-info">4층 × 9베드 = <strong>36베드/세트</strong></div>
+        <div class="set-info">36베드 × 13포트 = <strong>468포트/세트</strong></div>
+      </div>
+
+      <div style="display: flex; align-items: center; font-size: 40px; color: #7CB342;">×</div>
+
+      <div style="text-align: center;">
+        <div style="font-size: 80px; font-weight: bold; color: #2D5016;">4</div>
+        <div style="font-size: 14px; color: #5D6D4E;">세트</div>
+        <div style="font-size: 12px; color: #888; margin-top: 5px;">(9m 길이 방향, 이동식 레일)</div>
+      </div>
+
+      <div style="display: flex; align-items: center; font-size: 40px; color: #7CB342;">=</div>
+
+      <div style="text-align: center; background: #E8F5E9; padding: 20px 30px; border-radius: 12px;">
+        <div style="font-size: 48px; font-weight: bold; color: #2D5016;">144</div>
+        <div style="font-size: 14px; color: #5D6D4E;">총 베드</div>
+        <div style="font-size: 24px; font-weight: bold; color: #E65100; margin-top: 10px;">1,872</div>
+        <div style="font-size: 12px; color: #5D6D4E;">총 포트</div>
+      </div>
+    </div>
+
+    <div class="structure-note">
+      <strong>구조 계산 (이동식 레일 시스템):</strong><br>
+      • 컨테이너: 3m(폭) × 9m(길이)<br>
+      • 1세트 크기: 2m(길이) × 3m(폭) × 1.5m(높이)<br>
+      • 배치: 9m 길이 방향으로 4세트 (2m × 4 = 8m + 통로)<br>
+      • 층별 배치: 벽-베드-베드-<strong style="color:#1976D2;">이동복도</strong>-베드-베드-베드-기둥-베드-베드-복도-베드-베드-벽 = <strong>9베드/층</strong><br>
+      • 세트당 구성: 4층 × 9베드 = <strong>36베드/세트</strong><br>
+      • 총 베드: 4세트 × 36베드 = <strong>144베드</strong><br>
+      • 포트 간격: <strong>15cm</strong> (2m 베드 ÷ 15cm ≈ 13포트/베드)<br>
+      • 총 포트: 144베드 × 13포트 = <strong>1,872포트</strong><br>
+      <br>
+      <strong style="color:#E65100;">📈 이전 구조 대비 개선 효과:</strong><br>
+      • 베드 수: 128개 → 144개 (+12.5%)<br>
+      • 포트 수: 1,280개 → 1,872개 (+46%)<br>
+      • 월 순이익: ₩291,000 → ₩587,200 (+102%)<br>
+      • 투자 회수: 8.6년 → 4.3년 (50% 단축)
+    </div>
+  </div>
+
+  <!-- 단일 베드 상세 -->
+  <div class="bed-detail">
+    <h3>🌱 단일 베드 상세 (2m 길이, 13포트)</h3>
+    <div class="single-bed">
+      <div class="bed-3d">
+        <div class="bed-dim-spacing">← 15cm 간격 →</div>
+        <div class="bed-surface">
+          <div class="port-container">
+            <div class="port">1</div>
+            <div class="port">2</div>
+            <div class="port">3</div>
+            <div class="port">4</div>
+            <div class="port">5</div>
+            <div class="port">6</div>
+            <div class="port">7</div>
+            <div class="port">8</div>
+            <div class="port">9</div>
+            <div class="port">10</div>
+            <div class="port">11</div>
+            <div class="port">12</div>
+            <div class="port">13</div>
+          </div>
+        </div>
+        <div class="bed-dim-w">2.0m (13포트 × 15cm 간격)</div>
+      </div>
+    </div>
+
+    <!-- 범례 -->
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background: linear-gradient(135deg, #7CB342, #689F38);"></div>
+        <span>NFT 재배 베드</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-led"></div>
+        <span>LED 생장등</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #78909C;"></div>
+        <span>스테인리스 프레임/기둥</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #FF9800;"></div>
+        <span>출입문</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: radial-gradient(circle, #C8E6C9, #81C784); border-radius: 50%;"></div>
+        <span>재배 포트</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #1976D2;"></div>
+        <span>이동식 레일</span>
+      </div>
+    </div>
+
+    <!-- 스펙 박스 -->
+    <div class="specs">
+      <div class="spec-box">
+        <div class="spec-value">4</div>
+        <div class="spec-label">총 세트 수</div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-value">144</div>
+        <div class="spec-label">총 베드 수</div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-value">13</div>
+        <div class="spec-label">베드당 포트</div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-value">1,872</div>
+        <div class="spec-label">총 포트 수</div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-value">4층</div>
+        <div class="spec-label">적층 구조</div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-value">15cm</div>
+        <div class="spec-label">포트 간격</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

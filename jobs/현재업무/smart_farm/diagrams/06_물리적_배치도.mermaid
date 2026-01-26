@@ -1,0 +1,69 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4CAF50'}}}%%
+
+flowchart TB
+    subgraph Cabinet["🗄️ 재배기 캐비닛 (전면도)"]
+        direction TB
+
+        subgraph TopSection["상단부 - 조명 & 카메라"]
+            LED_Panel["═══════════════════════<br/>💡 LED 패널 (30W)<br/>Red:Blue = 6:4<br/>═══════════════════════"]
+            Camera_Mount["📷 카메라 마운트<br/>(LED 상단 5cm)"]
+            Fan_Exhaust["🌀 배기팬"]
+        end
+
+        subgraph GrowSection["중단부 - 재배 공간"]
+            direction TB
+            GrowSpace["<br/><br/>🌱 🌱 🌱 🌱 🌱 🌱<br/>재배 베드<br/>(NFT 채널 x 2)<br/>🌱 🌱 🌱 🌱 🌱 🌱<br/><br/>"]
+            AirFlow["➡️ 공기 흐름 ➡️"]
+        end
+
+        subgraph MiddleSection["중간 - 센서부"]
+            TH_Sensor["🌡️💧<br/>온습도 센서"]
+            CO2_Sensor["💨 CO₂ 센서"]
+            Fan_Circ["🌀 순환팬"]
+        end
+
+        subgraph BottomSection["하단부 - 양액 시스템"]
+            direction LR
+
+            subgraph TankArea["양액 탱크"]
+                MainTank["🪣 메인탱크<br/>10L"]
+                SolutionTanks["🧪 A액 | B액 | pH"]
+            end
+
+            subgraph PumpArea["펌프부"]
+                Pumps["🔄 펌프 유닛<br/>순환 | A | B | pH"]
+            end
+
+            subgraph FilterArea["필터부"]
+                Filters["🔍 필터<br/>50mesh | 100mesh"]
+            end
+        end
+
+        subgraph ControlBox["📦 제어 박스 (측면)"]
+            ESP32_Box["⚡ ESP32"]
+            Pi_Box["🖥️ Raspberry Pi"]
+            Relay_Box["🔘 릴레이 모듈"]
+            Power_Box["🔌 전원부"]
+        end
+    end
+
+    %% 연결 화살표
+    LED_Panel -.->|"15-20cm"| GrowSpace
+    Camera_Mount -.->|"촬영"| GrowSpace
+    MainTank -->|"양액 공급"| Pumps
+    Pumps -->|"필터링"| Filters
+    Filters -->|"공급"| GrowSpace
+    GrowSpace -->|"배수"| MainTank
+
+    %% 스타일
+    classDef top fill:#fff9c4,stroke:#f9a825,stroke-width:2px
+    classDef grow fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    classDef sensor fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef tank fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    classDef control fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+
+    class LED_Panel,Camera_Mount,Fan_Exhaust top
+    class GrowSpace,AirFlow grow
+    class TH_Sensor,CO2_Sensor,Fan_Circ sensor
+    class MainTank,SolutionTanks,Pumps,Filters tank
+    class ESP32_Box,Pi_Box,Relay_Box,Power_Box control

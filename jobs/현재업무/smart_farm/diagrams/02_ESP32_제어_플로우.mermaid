@@ -1,0 +1,98 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#FF9800'}}}%%
+
+flowchart TD
+    subgraph Core0["🔷 Core 0 - 실시간 제어"]
+        Start0([시작]) --> ReadSensor["📊 센서 읽기<br/>1초 주기"]
+
+        ReadSensor --> TempControl{"🌡️ 온도<br/>20-23°C?"}
+        TempControl -->|높음| Cooling["❄️ 쿨러 ON<br/>팬 속도 증가"]
+        TempControl -->|낮음| Heating["🔥 히터 ON"]
+        TempControl -->|정상| TempOK["✅ 유지"]
+
+        Cooling --> HumControl
+        Heating --> HumControl
+        TempOK --> HumControl
+
+        HumControl{"💧 습도<br/>60-70%?"}
+        HumControl -->|낮음| HumidOn["💨 가습기 ON"]
+        HumControl -->|높음| VentOn["🌀 환기 팬 ON"]
+        HumControl -->|정상| HumOK["✅ 유지"]
+
+        HumidOn --> CO2Control
+        VentOn --> CO2Control
+        HumOK --> CO2Control
+
+        CO2Control{"💨 CO₂<br/>600-900ppm?"}
+        CO2Control -->|낮음 & LED ON| CO2Inject["🔓 CO₂ 밸브 OPEN"]
+        CO2Control -->|높음| CO2Vent["🌀 환기"]
+        CO2Control -->|정상| CO2OK["✅ 유지"]
+
+        CO2Inject --> LEDControl
+        CO2Vent --> LEDControl
+        CO2OK --> LEDControl
+
+        LEDControl{"💡 시간대?"}
+        LEDControl -->|06:00-22:00| LEDOn["💡 LED ON<br/>PWM 100%"]
+        LEDControl -->|22:00-06:00| LEDOff["🌙 LED OFF"]
+
+        LEDOn --> ReadSensor
+        LEDOff --> ReadSensor
+    end
+
+    subgraph Core1["🔶 Core 1 - 양액 & 통신"]
+        Start1([시작]) --> ReadNutrient["🧪 양액 센서 읽기<br/>5초 주기"]
+
+        ReadNutrient --> pHControl{"🧪 pH<br/>5.5-6.5?"}
+        pHControl -->|높음| pHDown["⬇️ pH Down 투입"]
+        pHControl -->|낮음| pHUp["⬆️ pH Up 투입"]
+        pHControl -->|정상| pHOK["✅ 유지"]
+
+        pHDown --> ECControl
+        pHUp --> ECControl
+        pHOK --> ECControl
+
+        ECControl{"⚡ EC<br/>1.2-1.6?"}
+        ECControl -->|낮음| AddNutrient["💉 양액 A+B 투입"]
+        ECControl -->|높음| AddWater["💧 원수 투입"]
+        ECControl -->|정상| ECOK["✅ 유지"]
+
+        AddNutrient --> WaterTempCtrl
+        AddWater --> WaterTempCtrl
+        ECOK --> WaterTempCtrl
+
+        WaterTempCtrl{"🌊 수온<br/>19-21°C?"}
+        WaterTempCtrl -->|낮음| WaterHeat["🔥 수중히터 ON"]
+        WaterTempCtrl -->|높음| WaterCool["❄️ 수냉 ON"]
+        WaterTempCtrl -->|정상| WaterOK["✅ 유지"]
+
+        WaterHeat --> SendData
+        WaterCool --> SendData
+        WaterOK --> SendData
+
+        SendData["📡 Pi로 데이터 전송<br/>UART"]
+        SendData --> ReceiveCmd["📥 명령 수신"]
+        ReceiveCmd --> ReadNutrient
+    end
+
+    subgraph Safety["🛡️ 안전 감시 (인터럽트)"]
+        SafetyCheck["⚠️ 안전 체크<br/>100ms"]
+        SafetyCheck --> TempSafe{"온도 > 30°C<br/>또는 < 10°C?"}
+        TempSafe -->|Yes| Emergency["🚨 긴급 정지<br/>모든 액추에이터 OFF"]
+        TempSafe -->|No| pHSafe{"pH < 4.5<br/>또는 > 7.5?"}
+        pHSafe -->|Yes| Emergency
+        pHSafe -->|No| LevelSafe{"수위 < 20%?"}
+        LevelSafe -->|Yes| PumpStop["⛔ 펌프 정지"]
+        LevelSafe -->|No| SafeOK["✅ 정상"]
+
+        Emergency --> Alarm["📢 알람 발생<br/>LED 점멸"]
+        PumpStop --> Alarm
+        SafeOK --> SafetyCheck
+        Alarm --> SafetyCheck
+    end
+
+    %% 스타일
+    classDef control fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef nutrient fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef safety fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef action fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px

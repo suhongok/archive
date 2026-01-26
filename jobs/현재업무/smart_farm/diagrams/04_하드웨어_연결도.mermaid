@@ -1,0 +1,150 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#673AB7'}}}%%
+
+flowchart LR
+    subgraph Power["🔌 전원부"]
+        AC220["AC 220V"]
+        SMPS12V["12V 10A<br/>SMPS"]
+        SMPS5V["5V 5A<br/>SMPS"]
+        Buck3V3["3.3V<br/>레귤레이터"]
+    end
+
+    subgraph ESP["⚡ ESP32 DevKit"]
+        direction TB
+        ESP32["ESP32-WROOM-32"]
+
+        subgraph GPIO_I2C["I2C (GPIO 21,22)"]
+            I2C_SDA["SDA"]
+            I2C_SCL["SCL"]
+        end
+
+        subgraph GPIO_UART["UART"]
+            UART0["UART0 (GPIO 1,3)<br/>Pi 통신"]
+            UART2["UART2 (GPIO 16,17)<br/>CO₂ 센서"]
+        end
+
+        subgraph GPIO_ADC["ADC"]
+            ADC_pH["GPIO 32<br/>pH"]
+            ADC_EC["GPIO 33<br/>EC"]
+            ADC_Level["GPIO 34<br/>수위"]
+        end
+
+        subgraph GPIO_PWM["PWM"]
+            PWM_LED["GPIO 26<br/>LED"]
+            PWM_Fan["GPIO 27<br/>팬"]
+        end
+
+        subgraph GPIO_Digital["Digital Out"]
+            GPIO12["GPIO 12-19<br/>릴레이 8ch"]
+        end
+
+        subgraph GPIO_1Wire["1-Wire"]
+            OneWire["GPIO 25<br/>DS18B20"]
+        end
+    end
+
+    subgraph Sensors["📊 센서부"]
+        SHT30["🌡️ SHT30<br/>온습도<br/>(I2C)"]
+        MHZ19["💨 MH-Z19B<br/>CO₂<br/>(UART)"]
+        pH_Sensor["🧪 pH 센서<br/>(Analog)"]
+        EC_Sensor["⚡ EC 센서<br/>(Analog)"]
+        DS18B20["🌊 DS18B20<br/>수온<br/>(1-Wire)"]
+        LevelSensor["📏 수위센서<br/>(Analog)"]
+    end
+
+    subgraph Relay["🔘 8채널 릴레이"]
+        R1["CH1: 메인펌프"]
+        R2["CH2: A액 펌프"]
+        R3["CH3: B액 펌프"]
+        R4["CH4: pH펌프"]
+        R5["CH5: 히터"]
+        R6["CH6: 가습기"]
+        R7["CH7: CO₂밸브"]
+        R8["CH8: 에어펌프"]
+    end
+
+    subgraph PWM_Drivers["📶 PWM 드라이버"]
+        LED_Driver["LED 드라이버<br/>Mean Well"]
+        Fan_PWM["팬 PWM<br/>모듈"]
+    end
+
+    subgraph Actuators["⚙️ 액추에이터"]
+        LED["💡 LED 조명<br/>30W"]
+        Fan1["🌀 환기 팬"]
+        Fan2["🌀 냉각 팬"]
+        MainPump["🔄 순환 펌프"]
+        PumpA["💉 A액 펌프"]
+        PumpB["💉 B액 펌프"]
+        pHPump["💉 pH 펌프"]
+        Heater["🔥 히터"]
+        Humidifier["💧 가습기"]
+        CO2Valve["🔓 CO₂ 밸브"]
+        AirPump["💨 에어펌프"]
+    end
+
+    subgraph RaspberryPi["🖥️ Raspberry Pi 4"]
+        Pi["Raspberry Pi 4<br/>4GB"]
+        PiCam["📷 Pi AI Camera"]
+        SSD["💾 256GB SSD"]
+    end
+
+    %% 전원 연결
+    AC220 --> SMPS12V
+    AC220 --> SMPS5V
+    SMPS5V --> Buck3V3
+    SMPS5V --> ESP32
+    SMPS5V --> Pi
+    Buck3V3 --> SHT30
+    SMPS12V --> Relay
+    SMPS12V --> LED_Driver
+    SMPS12V --> Fan_PWM
+
+    %% I2C 연결
+    I2C_SDA --> SHT30
+    I2C_SCL --> SHT30
+
+    %% UART 연결
+    UART0 <--> Pi
+    UART2 --> MHZ19
+
+    %% ADC 연결
+    ADC_pH --> pH_Sensor
+    ADC_EC --> EC_Sensor
+    ADC_Level --> LevelSensor
+
+    %% PWM 연결
+    PWM_LED --> LED_Driver --> LED
+    PWM_Fan --> Fan_PWM --> Fan1
+    Fan_PWM --> Fan2
+
+    %% 1-Wire 연결
+    OneWire --> DS18B20
+
+    %% 릴레이 연결
+    GPIO12 --> Relay
+    R1 --> MainPump
+    R2 --> PumpA
+    R3 --> PumpB
+    R4 --> pHPump
+    R5 --> Heater
+    R6 --> Humidifier
+    R7 --> CO2Valve
+    R8 --> AirPump
+
+    %% Pi 연결
+    Pi --> PiCam
+    Pi --> SSD
+
+    %% 스타일
+    classDef power fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+    classDef esp fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef sensor fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef relay fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef actuator fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef pi fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+
+    class AC220,SMPS12V,SMPS5V,Buck3V3 power
+    class ESP32,I2C_SDA,I2C_SCL,UART0,UART2,ADC_pH,ADC_EC,ADC_Level,PWM_LED,PWM_Fan,GPIO12,OneWire esp
+    class SHT30,MHZ19,pH_Sensor,EC_Sensor,DS18B20,LevelSensor sensor
+    class R1,R2,R3,R4,R5,R6,R7,R8 relay
+    class LED,Fan1,Fan2,MainPump,PumpA,PumpB,pHPump,Heater,Humidifier,CO2Valve,AirPump actuator
+    class Pi,PiCam,SSD pi

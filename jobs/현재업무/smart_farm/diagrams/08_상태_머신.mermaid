@@ -1,0 +1,110 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#FF5722'}}}%%
+
+stateDiagram-v2
+    [*] --> Initializing: 전원 ON
+
+    state Initializing {
+        [*] --> SensorCheck: 시작
+        SensorCheck --> CalibrationCheck: 센서 OK
+        SensorCheck --> SensorError: 센서 오류
+        CalibrationCheck --> WiFiConnect: 캘리브레이션 OK
+        WiFiConnect --> PiConnect: WiFi 연결됨
+        PiConnect --> Ready: Pi 통신 OK
+        SensorError --> [*]: 초기화 실패
+    }
+
+    Initializing --> Normal: 초기화 완료
+
+    state Normal {
+        [*] --> Monitoring
+
+        state Monitoring {
+            [*] --> ReadSensors
+            ReadSensors --> EvaluateConditions
+            EvaluateConditions --> ControlActuators
+            ControlActuators --> SendData
+            SendData --> ReadSensors: 1초 주기
+        }
+
+        state "LED 스케줄" as LEDSchedule {
+            Dawn --> DayMode: 06:00
+            DayMode --> Dusk: 21:30
+            Dusk --> NightMode: 22:00
+            NightMode --> Dawn: 06:00
+        }
+
+        state "양액 관리" as NutrientMgmt {
+            [*] --> pHCheck
+            pHCheck --> ECCheck: pH 정상
+            pHCheck --> pHAdjust: pH 이상
+            pHAdjust --> pHCheck: 조정 완료
+            ECCheck --> TempCheck: EC 정상
+            ECCheck --> ECAdjust: EC 이상
+            ECAdjust --> ECCheck: 조정 완료
+            TempCheck --> [*]: 수온 정상
+            TempCheck --> TempAdjust: 수온 이상
+            TempAdjust --> TempCheck: 조정 완료
+        }
+    }
+
+    state Warning {
+        [*] --> WarningActive
+        WarningActive --> LogWarning: 경고 기록
+        LogWarning --> NotifyUser: 알림 전송
+        NotifyUser --> AttemptRecovery: 자동 복구 시도
+        AttemptRecovery --> [*]: 복구 완료
+    }
+
+    state Emergency {
+        [*] --> AllStop: 모든 액추에이터 정지
+        AllStop --> AlarmOn: LED 점멸 + 알림
+        AlarmOn --> WaitManual: 수동 개입 대기
+        WaitManual --> [*]: 리셋 버튼
+    }
+
+    state Maintenance {
+        [*] --> Paused: 제어 일시정지
+        Paused --> ManualControl: 수동 제어 모드
+        ManualControl --> Calibration: 센서 교정
+        Calibration --> WaterChange: 양액 교체
+        WaterChange --> [*]: 완료
+    }
+
+    state Offline {
+        [*] --> LocalMode: 오프라인 운전
+        LocalMode --> BufferData: 데이터 로컬 저장
+        BufferData --> RetryConnect: 재연결 시도
+        RetryConnect --> LocalMode: 실패
+        RetryConnect --> [*]: 성공
+    }
+
+    Normal --> Warning: 경고 조건\n(온도 28°C↑ 등)
+    Warning --> Normal: 조건 정상화
+    Warning --> Emergency: 위험 조건\n(온도 30°C↑ 등)
+    Emergency --> Maintenance: 수동 리셋
+
+    Normal --> Maintenance: 유지보수 버튼
+    Maintenance --> Normal: 유지보수 완료
+
+    Normal --> Offline: WiFi 끊김
+    Offline --> Normal: WiFi 복구
+
+    note right of Normal
+        정상 운전 모드
+        - 센서 모니터링
+        - 자동 환경 제어
+        - 데이터 전송
+    end note
+
+    note right of Warning
+        경고 모드
+        - 자동 복구 시도
+        - 사용자 알림
+    end note
+
+    note right of Emergency
+        비상 모드
+        - 모든 제어 중단
+        - 안전 상태 유지
+        - 수동 개입 필요
+    end note

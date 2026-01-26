@@ -1,0 +1,95 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4CAF50', 'secondaryColor': '#2196F3', 'tertiaryColor': '#FF9800'}}}%%
+
+flowchart TB
+    subgraph Cloud["☁️ AWS Cloud"]
+        direction TB
+        IoT["AWS IoT Core<br/>MQTT Broker"]
+        Lambda["AWS Lambda<br/>데이터 처리"]
+        DynamoDB["DynamoDB<br/>실시간 데이터"]
+        S3["S3<br/>이미지/로그"]
+        SNS["SNS<br/>알림 서비스"]
+        SageMaker["SageMaker<br/>AI 모델 학습"]
+        QuickSight["QuickSight<br/>대시보드"]
+    end
+
+    subgraph Edge["🖥️ Raspberry Pi (엣지 서버)"]
+        direction TB
+        Camera["📷 Pi Camera<br/>AI Camera IMX500"]
+        AIEngine["🤖 AI 추론 엔진<br/>TensorFlow Lite"]
+        LocalMQTT["📡 로컬 MQTT<br/>Mosquitto"]
+        Stream["📺 스트리밍 서버<br/>WebRTC"]
+        Gateway["🌐 클라우드<br/>게이트웨이"]
+    end
+
+    subgraph MCU["⚡ ESP32 (실시간 제어기)"]
+        direction TB
+        SensorTask["센서 태스크<br/>1초 주기"]
+        ControlTask["제어 태스크<br/>PID/히스테리시스"]
+        SafetyTask["안전 감시<br/>Watchdog"]
+        CommTask["통신 태스크<br/>UART"]
+    end
+
+    subgraph Sensors["📊 센서"]
+        direction LR
+        TempHum["🌡️ SHT30<br/>온습도"]
+        CO2["💨 MH-Z19B<br/>CO₂"]
+        pH["🧪 pH 센서"]
+        EC["⚡ EC 센서"]
+        WaterTemp["🌊 DS18B20<br/>수온"]
+        Level["📏 수위 센서"]
+    end
+
+    subgraph Actuators["⚙️ 액추에이터"]
+        direction LR
+        LED["💡 LED 조명<br/>PWM 제어"]
+        Fan["🌀 DC 팬<br/>환기/냉각"]
+        Heater["🔥 히터<br/>가열"]
+        Humidifier["💧 가습기"]
+        Pumps["🔄 펌프류<br/>pH/EC/순환"]
+    end
+
+    subgraph App["📱 사용자 인터페이스"]
+        Mobile["📱 모바일 앱"]
+        Web["🌐 웹 대시보드"]
+    end
+
+    %% 연결선
+    Sensors --> SensorTask
+    SensorTask --> ControlTask
+    ControlTask --> Actuators
+    SafetyTask --> Actuators
+
+    CommTask <--> |UART| LocalMQTT
+    Camera --> AIEngine
+    AIEngine --> LocalMQTT
+    Stream --> |WebRTC| Mobile
+
+    LocalMQTT --> Gateway
+    Gateway <--> |MQTT/HTTPS| IoT
+
+    IoT --> Lambda
+    Lambda --> DynamoDB
+    Lambda --> S3
+    Lambda --> SNS
+    S3 --> SageMaker
+    DynamoDB --> QuickSight
+
+    SNS --> Mobile
+    QuickSight --> Web
+    Mobile <--> |API| IoT
+    Web <--> |API| IoT
+
+    %% 스타일
+    classDef cloud fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef edge fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef mcu fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef sensor fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef actuator fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef app fill:#e0f7fa,stroke:#00838f,stroke-width:2px
+
+    class IoT,Lambda,DynamoDB,S3,SNS,SageMaker,QuickSight cloud
+    class Camera,AIEngine,LocalMQTT,Stream,Gateway edge
+    class SensorTask,ControlTask,SafetyTask,CommTask mcu
+    class TempHum,CO2,pH,EC,WaterTemp,Level sensor
+    class LED,Fan,Heater,Humidifier,Pumps actuator
+    class Mobile,Web app

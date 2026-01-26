@@ -25,12 +25,14 @@
             "id": "3779c751327a0eac",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "jobs/현재업무/allturn/RND과제/디딤돌_2026/공고문/Document Print.pdf"
+                "file": "jobs/현재업무/allturn/OdinLift 개발/parts.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "Document Print"
+              "icon": "lucide-file",
+              "title": "parts"
             }
           }
         ],
@@ -198,6 +200,14 @@
   },
   "active": "3779c751327a0eac",
   "lastOpenFiles": [
+    "jobs/현재업무/allturn/OdinLift 개발/DevLog.md",
+    "jobs/현재업무/allturn/OdinTruck/DevLog.md",
+    "jobs/현재업무/allturn/OdinTruck/OdinTruck 관련 내용정리.md",
+    "jobs/현재업무/allturn/OdinTruck",
+    "jobs/현재업무/allturn/OdinLift 개발/parts.md",
+    "jobs/현재업무/allturn/OdinLift 개발/allturn odin 지게차 개발 진행.md",
+    "jobs/현재업무/allturn/OdinLift 개발/메카넘ai_지게차_v1.0.md",
+    "jobs/현재업무/allturn/RND과제/디딤돌_2026/공고문/Document Print.pdf",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/IRIS_디딤돌_사업계획서_스마트팜_v3.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/IRIS_디딤돌_사업계획서_양식_v2.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/5. 특화지표 검토요청서_전북지방청.html",
@@ -208,20 +218,14 @@
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/3. 중소기업기술개발사업 개인정보 수집이용 동의서_style.css",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/2. 신용상태 조회 정보활용 동의서.html",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/2. 신용상태 조회 정보활용 동의서_style.css",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/1. 연구개발계획서 양식_전북지방청.html",
-    "jobs/현재업무/allturn/RND과제/디딤돌_2026/제출서류/1. 연구개발계획서 양식_전북지방청_style.css",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/IRIS_디딤돌_사업계획서_PhysicalAI_v1.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/수정사업계획서_Rev4.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/IRIS_등록_가이드.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/올턴_디딤돌_제안서_초안.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/파일다운로드_가이드.md",
-    "jobs/현재업무/allturn/OdinLift 개발/allturn odin 지게차 개발 진행.md",
     "jobs/현재업무/allturn/RND과제/디딤돌_2026/README.md",
-    "jobs/현재업무/allturn/OdinLift 개발/DevLog.md",
-    "jobs/현재업무/allturn/OdinLift 개발/parts.md",
     "jobs/현재업무/allturn/제품_라인업_회의자료_2026-01.md",
     "jobs/현재업무/allturn/라즈베리파이5 우분투 및 ROS설치.md",
-    "jobs/현재업무/allturn/OdinLift 개발/메카넘ai_지게차_v1.0.md",
     "jobs/현재업무/allturn/메카넘휠 지게차 사람인지 경보장치 & following .md",
     "jobs/현재업무/allturn/ATlift(Mecanum Forklift  feat. ATIDRIVE).md",
     "jobs/현재업무/allturn/농기계 인증.md",
@@ -234,8 +238,6 @@
     "jobs/현재업무/allturn/올턴_언론홍보자료_메카넘_피지컬AI_v1.0.md",
     "jobs/현재업무/allturn/올턴_기업가치_산정_v1.0.md",
     "jobs/현재업무/allturn/올턴 - 메카트넘휠 스탭모터 제어 프로젝트 .md",
-    "jobs/현재업무/allturn/업무일지_12월.md",
-    "jobs/현재업무/allturn/메카넘휠 전용 LLM모델 올리기.md",
     "무제 2.canvas"
   ]
 }
