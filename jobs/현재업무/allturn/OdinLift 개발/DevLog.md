@@ -799,3 +799,48 @@ REMOTE > GAMEPAD > ROS2 > NEUTRAL
 - [ ] GPIO 9 배선 확인 (리모컨 TX → ESP32 RX)
 - [ ] 오실로스코프로 신호 확인
 - [ ] 다른 GPIO 핀으로 테스트 (GPIO 9가 특수 용도일 경우)
+
+---
+
+## 2026-02-02: FR, RL 휠 회전 방향 버그 수정
+
+### 문제 현상
+
+- 전후진: 정상 동작 ✓
+- 제자리 회전: FR, RL 방향이 반대로 회전
+
+### 원인 분석
+
+메카넘 역기구학 수식에서 ORI 보정이 전진/회전 모두에 동일하게 적용되어, 회전 시 FR과 RL 방향이 반전됨.
+
+```cpp
+// 기존 수식 (문제)
+float FLp = x - y + z;
+float FRp = x + y - z;  // 회전(z) 부호 틀림
+float RLp = x + y + z;  // 회전(z) 부호 틀림
+float RRp = x - y - z;
+```
+
+### 해결 방법
+
+**파일: `src/rtos/motor_task.cpp`** (줄 101-104)
+
+```cpp
+// 수정된 수식
+float FLp = x - y + z;
+float FRp = x + y + z;   // 회전 방향 수정: -z → +z
+float RLp = x + y - z;   // 회전 방향 수정: +z → -z
+float RRp = x - y - z;
+```
+
+### 변경 파일
+
+| 파일 | 변경 사항 |
+|------|-----------|
+| `src/rtos/motor_task.cpp` | FR, RL 역기구학 회전(z) 부호 수정 |
+
+### 테스트 항목
+
+- [ ] 전후진 - 4개 휠 동일 방향 회전 확인
+- [ ] 시계 방향 회전 - FL, RR 전진 / FR, RL 후진
+- [ ] 반시계 방향 회전 - FR, RL 전진 / FL, RR 후진
