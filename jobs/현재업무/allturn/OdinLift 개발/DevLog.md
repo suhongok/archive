@@ -844,3 +844,230 @@ float RRp = x - y - z;
 - [ ] 전후진 - 4개 휠 동일 방향 회전 확인
 - [ ] 시계 방향 회전 - FL, RR 전진 / FR, RL 후진
 - [ ] 반시계 방향 회전 - FR, RL 전진 / FL, RR 후진
+
+---
+
+## 2026-02-04: RF 리모컨 Start 버튼 후 릴레이 꺼짐 문제 해결
+
+### 문제 현상
+
+RF 리모컨의 start(power_on) 버튼을 누르면 릴레이가 켜졌다가 **약 150ms 후에 자동으로 꺼지는 문제**
+
+### 근본 원인
+
+```
+1. RF 리모컨 특성: 버튼을 누르고 있는 동안만 신호 전송
+2. TTL 타임아웃(150ms): 신호가 없으면 connected = false
+3. CommandTask 로직: !remoteData.connected 시 즉시 NEUTRAL 모드 전환 → 릴레이 OFF
+```
+
+**기존 흐름:**
+```
+start 버튼 누름 → REMOTE 모드 → 릴레이 ON
+       ↓
+버튼에서 손 뗌 → 신호 중단
+       ↓ (150ms 후)
+TTL 타임아웃 → connected = false
+       ↓
+CommandTask 감지 → NEUTRAL 전환 → 릴레이 OFF ❌
+```
+
+### 해결 방안: 하이브리드 상태 관리
+
+**핵심 아이디어:** "신호 활성 상태"와 "모드 활성(armed) 상태"를 분리
+
+| 상태 | TTL | 역할 | 제어 대상 |
+|------|-----|------|----------|
+| `signalActive` | 150ms | 신호 수신 여부 | **모터** (정지/동작) |
+| `remoteArmed` | 60초 | 모드 활성 상태 | **릴레이** (ON/OFF), 모드 유지 |
+
+**비유:**
+- `signalActive` = 무전기로 **말하고 있는 중** (PTT 버튼 누르고 있음)
+- `remoteArmed` = 무전기 **전원 ON** (대기 상태, 언제든 통신 가능)
+
+### 구현 내용
+
+#### 1. Allturn_Remote_v2.cpp 수정
+
+```cpp
+// 새 상수
+static const uint32_t SAFETY_TIMEOUT_MS = 60000;  // 60초 안전 타임아웃
+
+// 하이브리드 상태 관리
+static bool signalActive = false;   // 150ms 이내 신호 수신 (모터 제어용)
+static bool remoteArmed = false;    // REMOTE 모드 활성 - start 버튼 토글 (릴레이 ON 유지)
+```
+
+**POWER_ON 처리 변경 (토글 방식):**
+```cpp
+case Action::POWER_ON:
+    remoteArmed = !remoteArmed;  // 토글
+    LOG.printf("[Remote] POWER_ON pressed --> armed=%s\n", remoteArmed ? "true" : "false");
+    if (startCallback) startCallback();
+    break;
+```
+
+**tick() 함수 변경:**
+```cpp
+void tick() {
+    uint32_t now = millis();
+
+    // 1. 신호 활성 TTL 체크 (150ms) - 모터 정지, 릴레이 유지
+    if (signalActive && (now - lastRxMs > TTL_MS)) {
+        LOG.println("[Remote] Signal TTL timeout - stopping motors (150ms)");
+        signalActive = false;
+        currentTwist = {0, 0};
+        if (twistCallback) twistCallback(currentTwist);
+    }
+
+    // 2. 안전 타임아웃 체크 (60초) - armed 해제 → NEUTRAL 전환
+    if (remoteArmed && lastRxMs > 0 && (now - lastRxMs > SAFETY_TIMEOUT_MS)) {
+        LOG.println("[Remote] Safety timeout - disarming (60s)");
+        remoteArmed = false;
+        signalActive = false;
+        currentTwist = {0, 0};
+        if (twistCallback) twistCallback(currentTwist);
+    }
+}
+```
+
+#### 2. Allturn_Remote_v2.h API 추가
+
+```cpp
+bool isSignalActive();     // 150ms 이내 신호 수신 여부
+bool isArmed();            // REMOTE 모드 활성 여부
+void setArmed(bool armed); // 외부에서 armed 상태 설정
+```
+
+#### 3. rtos_config.h 구조체 확장
+
+```cpp
+struct RemoteCmdData {
+    int8_t linPct;
+    int8_t turnPct;
+    bool powerPressed;
+    bool estop;
+    bool connected;      // armed 상태 (모드 유지)
+    bool signalActive;   // 신호 활성 (모터 제어) ★ 추가
+    uint32_t timestamp;
+};
+```
+
+#### 4. bluepad32_task.cpp 수정
+
+```cpp
+remoteQueueData.connected = allturn_remote_v2::isArmed();       // armed 상태
+remoteQueueData.signalActive = allturn_remote_v2::isSignalActive(); // 신호 활성
+```
+
+### 수정 파일 목록
+
+| 파일 | 변경 사항 |
+|------|-----------|
+| `src/Allturn_Remote_v2.cpp` | armed 상태 관리, 60초 안전 타임아웃, start 토글 방식 |
+| `src/Allturn_Remote_v2.h` | `isSignalActive()`, `isArmed()`, `setArmed()` API 추가 |
+| `src/rtos/rtos_config.h` | `RemoteCmdData`에 `signalActive` 필드 추가 |
+| `src/rtos/bluepad32_task.cpp` | 새 API 사용 |
+| `src/rtos/command_task.cpp` | 디버그 로그 개선 |
+
+### 예상 동작 시나리오
+
+#### 정상 사용
+1. start 버튼 누름 → `remoteArmed=true` → REMOTE 모드 → **릴레이 ON**
+2. 방향 버튼 누르고 있음 → `signalActive=true` → 모터 동작
+3. 방향 버튼 뗌 → 150ms 후 `signalActive=false` → 모터 정지, **릴레이 ON 유지** ✓
+4. start 버튼 다시 누름 → `remoteArmed=false` → NEUTRAL → **릴레이 OFF**
+
+#### 리모컨 분실/배터리 방전
+1. REMOTE 모드 활성 상태에서 신호 끊김
+2. 150ms 후 모터 정지
+3. **60초 후 자동으로 NEUTRAL 전환** → 릴레이 OFF (안전 장치)
+
+### 시리얼 로그
+
+```
+[Remote] POWER_ON pressed --> armed=true       # start 버튼으로 REMOTE 모드 진입
+[Remote] Signal TTL timeout - stopping motors (150ms)  # 버튼 뗀 후 모터만 정지
+[Remote] POWER_ON pressed --> armed=false      # start 다시 누르면 NEUTRAL
+[Remote] Safety timeout - disarming (60s)      # 60초 무신호 시 안전 해제
+```
+
+### 빌드 및 업로드 결과
+
+- ✅ 빌드 성공 (RAM: 20.4%, Flash: 8.9%)
+- ✅ 펌웨어 업로드 성공
+
+### 테스트 항목
+
+- [ ] start 버튼 눌러 REMOTE 모드 진입 → 릴레이 ON 확인
+- [ ] 버튼에서 손 뗀 후 릴레이가 **계속 ON인지** 확인
+- [ ] 방향 버튼 테스트 (누르면 이동, 떼면 정지)
+- [ ] start 버튼 다시 눌러 NEUTRAL 전환 확인
+- [ ] 60초 무신호 후 자동 NEUTRAL 전환 확인
+
+---
+
+## 2026-02-04: RF 리모컨 속도 상한 조절 기능 추가
+
+### 개요
+
+RF 리모컨의 SPEED_UP/SPEED_DOWN 버튼으로 최대 속도 상한 조절 기능 구현.
+
+### 동작 방식
+
+```
+[기존]
+전진 버튼 → linPct = 36% (고정) → motor_task ramp → 실제 RPM
+
+[변경 후]
+SPEED_UP → maxSpeedPct = 75% (상한 증가)
+전진 버튼 → linPct = 45% (60% × 75%) → motor_task ramp → 더 높은 RPM
+```
+
+### 버튼 매핑
+
+| 패턴 (HEX) | 액션 | 설명 |
+|------------|------|------|
+| `08 48 08 48` | SPEED_UP | 최대 속도 +15% |
+| `04 48 04 48` | SPEED_DOWN | 최대 속도 -15% |
+
+### 속도 설정
+
+| 항목 | 값 |
+|------|-----|
+| 기본 최대 속도 | 60% |
+| 증감 단위 | 15% |
+| 최소값 | 15% |
+| 최대값 | 100% |
+| 디바운싱 | 150ms |
+
+### 구현 내용
+
+#### Allturn_Remote_v2.h
+- `Action` 열거형에 `SPEED_UP`, `SPEED_DOWN` 추가
+
+#### Allturn_Remote_v2.cpp
+- 상수: `SPEED_STEP=15`, `MIN_SPEED_PCT=15`, `DEFAULT_MAX_SPEED=60`, `SPEED_DEBOUNCE_MS=150`
+- 상태 변수: `speedScale` → `maxSpeedPct` (int8_t)
+- 패턴: `PATTERN_SPEED_UP`, `PATTERN_SPEED_DOWN` 추가
+- 이동 명령: `BASE_PCT * maxSpeedPct / 100` 으로 목표 속도 계산
+- SPEED_UP/DOWN: 150ms 디바운싱 적용, maxSpeedPct만 변경
+
+### 변경 파일
+
+| 파일 | 변경 사항 |
+|------|-----------|
+| `src/Allturn_Remote_v2.h` | `SPEED_UP`, `SPEED_DOWN` 액션 추가 |
+| `src/Allturn_Remote_v2.cpp` | 속도 상한 조절 로직, 패턴 매칭, 디바운싱 |
+
+### 빌드 및 업로드 결과
+
+- ✅ 빌드 성공 (RAM: 20.4%, Flash: 8.9%)
+- ✅ 펌웨어 업로드 성공
+
+### 테스트 항목
+
+- [ ] 전진 버튼 → `linPct=36` (60% × 60%) 확인
+- [ ] SPEED_UP 1회 → `maxSpeed=75%` 로그 확인
+- [ ] 전진 버튼 → `linPct=45` (60% × 75%) 확인
+- [ ] SPEED_DOWN 2회 → `maxSpeed=45%` 로그 확인
