@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>견적서 - 온실용 이동로봇</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 30px 0;
+            letter-spacing: 15px;
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .left-info {
+            width: 45%;
+        }
+
+        .right-info {
+            width: 50%;
+        }
+
+        .recipient {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .supplier-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .supplier-table th {
+            background: #d9d9d9;
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #333;
+            font-weight: bold;
+        }
+
+        .supplier-table td {
+            padding: 5px 10px;
+            border: 1px solid #333;
+        }
+
+        .supplier-table .label {
+            width: 80px;
+            background: #f5f5f5;
+            text-align: center;
+        }
+
+        .total-box {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-box .label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .total-box .amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0000cc;
+        }
+
+        .total-box .vat {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 11px;
+        }
+
+        .items-table th {
+            background: #d9d9d9;
+            padding: 10px 5px;
+            border: 1px solid #333;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .items-table td {
+            padding: 8px 5px;
+            border: 1px solid #333;
+            vertical-align: middle;
+        }
+
+        .items-table .category {
+            font-weight: bold;
+            background: #f9f9f9;
+        }
+
+        .items-table .center {
+            text-align: center;
+        }
+
+        .items-table .right {
+            text-align: right;
+        }
+
+        .items-table .total-row {
+            background: #e8e8e8;
+            font-weight: bold;
+        }
+
+        .items-table .sum-row {
+            background: #d0d0d0;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .notice-section {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background: #fafafa;
+        }
+
+        .notice-section h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #999;
+            padding-bottom: 5px;
+        }
+
+        .notice-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .notice-table td {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+        }
+
+        .notice-table .label {
+            width: 120px;
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 11px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">見 積 書</div>
+
+    <div class="header-section">
+        <div class="left-info">
+            <p><strong>견적일자:</strong> 2026년 01월 29일</p>
+            <p><strong>견적자:</strong> 임해진 &nbsp;&nbsp; 010-9866-6306</p>
+            <p class="recipient">국립농업과학원 귀하</p>
+            <p style="margin-top: 15px;">아래와 같이 견적합니다.</p>
+        </div>
+        <div class="right-info">
+            <table class="supplier-table">
+                <tr>
+                    <th colspan="4">공 급 자</th>
+                </tr>
+                <tr>
+                    <td class="label">등록번호</td>
+                    <td colspan="3">706-08-02716</td>
+                </tr>
+                <tr>
+                    <td class="label">상호</td>
+                    <td><strong>올턴가연테크</strong></td>
+                    <td class="label">대표</td>
+                    <td>임해진</td>
+                </tr>
+                <tr>
+                    <td class="label">주소</td>
+                    <td colspan="3">전북 전주시 덕진구 원반월길 42</td>
+                </tr>
+                <tr>
+                    <td class="label">업태</td>
+                    <td>제조,도소매</td>
+                    <td class="label">종목</td>
+                    <td>제조업</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="total-box">
+        <span class="label">합계:</span>
+        <span class="amount">18,700,000 원</span>
+        <span class="vat">(부가세 포함)</span>
+    </div>
+
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th style="width:12%">구분</th>
+                <th style="width:22%">품명</th>
+                <th style="width:28%">규격</th>
+                <th style="width:6%">수량</th>
+                <th style="width:14%">단가</th>
+                <th style="width:14%">금액</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="category" rowspan="4">프레임</td>
+                <td>알루미늄 프로파일 프레임</td>
+                <td>4040 알루미늄 프로파일, 800x600x400mm</td>
+                <td class="center">1</td>
+                <td class="right">2,660,000</td>
+                <td class="right">2,660,000</td>
+            </tr>
+            <tr>
+                <td>프레임 연결부품 세트</td>
+                <td>브라켓, 볼트, 너트 일체</td>
+                <td class="center">1</td>
+                <td class="right">450,000</td>
+                <td class="right">450,000</td>
+            </tr>
+            <tr>
+                <td>상판 플레이트</td>
+                <td>알루미늄 5T, 가공 포함</td>
+                <td class="center">1</td>
+                <td class="right">550,000</td>
+                <td class="right">550,000</td>
+            </tr>
+            <tr>
+                <td>센서 마운트 브라켓</td>
+                <td>라이다/카메라 장착용 브라켓</td>
+                <td class="center">1</td>
+                <td class="right">200,000</td>
+                <td class="right">200,000</td>
+            </tr>
+            <tr>
+                <td class="category" rowspan="2">바퀴</td>
+                <td>인휠 기반 허브 모터</td>
+                <td>120W급, 하중 50kg/개</td>
+                <td class="center">4</td>
+                <td class="right">1,275,000</td>
+                <td class="right">5,100,000</td>
+            </tr>
+            <tr>
+                <td>휠 허브 어댑터</td>
+                <td>축 결합용</td>
+                <td class="center">4</td>
+                <td class="right">62,500</td>
+                <td class="right">250,000</td>
+            </tr>
+            <tr>
+                <td class="category" rowspan="5">제어 컨트롤 박스</td>
+                <td>ESP32-S3 메인 컨트롤러</td>
+                <td>ESP32-S3-WROOM-1, 듀얼코어</td>
+                <td class="center">1</td>
+                <td class="right">30,000</td>
+                <td class="right">30,000</td>
+            </tr>
+            <tr>
+                <td>모터 드라이버</td>
+                <td>브러쉬리스 모터 드라이버 120W</td>
+                <td class="center">2</td>
+                <td class="right">1,400,000</td>
+                <td class="right">2,800,000</td>
+            </tr>
+            <tr>
+                <td>컨트롤 박스 인클로저</td>
+                <td>IP65 방수 박스</td>
+                <td class="center">1</td>
+                <td class="right">250,000</td>
+                <td class="right">250,000</td>
+            </tr>
+            <tr>
+                <td>배선 및 커넥터</td>
+                <td>전원/통신 케이블, 커넥터 일체</td>
+                <td class="center">1</td>
+                <td class="right">350,000</td>
+                <td class="right">350,000</td>
+            </tr>
+            <tr>
+                <td>비상정지 스위치</td>
+                <td>비상정지 버튼 및 리셋 스위치</td>
+                <td class="center">1</td>
+                <td class="right">80,000</td>
+                <td class="right">80,000</td>
+            </tr>
+            <tr>
+                <td class="category" rowspan="2">배터리 및 충전기</td>
+                <td>리튬이온 배터리 팩 (BMS 포함)</td>
+                <td>24V 300Ah 인산철 배터리, BMS 내장</td>
+                <td class="center">1</td>
+                <td class="right">2,200,000</td>
+                <td class="right">2,200,000</td>
+            </tr>
+            <tr>
+                <td>스마트 충전기</td>
+                <td>24V 5A 스마트 충전기</td>
+                <td class="center">1</td>
+                <td class="right">450,000</td>
+                <td class="right">450,000</td>
+            </tr>
+            <tr>
+                <td class="category" rowspan="3">자율주행 센서</td>
+                <td>2D 라이다 센서</td>
+                <td>RPLiDAR A1M8 또는 동급, 360° 스캔</td>
+                <td class="center">1</td>
+                <td class="right">300,000</td>
+                <td class="right">300,000</td>
+            </tr>
+            <tr>
+                <td>Depth 카메라</td>
+                <td>Intel RealSense D435 또는 동급</td>
+                <td class="center">1</td>
+                <td class="right">540,000</td>
+                <td class="right">540,000</td>
+            </tr>
+            <tr>
+                <td>IMU 센서</td>
+                <td>MPU9250 9축 IMU</td>
+                <td class="center">1</td>
+                <td class="right">50,000</td>
+                <td class="right">50,000</td>
+            </tr>
+            <tr>
+                <td class="category" rowspan="4">스마트 컨트롤러</td>
+                <td>NVIDIA Jetson Nano Super</td>
+                <td>Jetson Nano Super Developer Kit</td>
+                <td class="center">1</td>
+                <td class="right">540,000</td>
+                <td class="right">540,000</td>
+            </tr>
+            <tr>
+                <td>Jetson 쿨링 팬</td>
+                <td>Noctua 40mm 저소음 팬</td>
+                <td class="center">1</td>
+                <td class="right">50,000</td>
+                <td class="right">50,000</td>
+            </tr>
+            <tr>
+                <td>SSD</td>
+                <td>128GB, M.2</td>
+                <td class="center">1</td>
+                <td class="right">50,000</td>
+                <td class="right">50,000</td>
+            </tr>
+            <tr>
+                <td>WiFi/BT 모듈</td>
+                <td>WiFi 6 + Bluetooth 5.0</td>
+                <td class="center">1</td>
+                <td class="right">100,000</td>
+                <td class="right">100,000</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="5" class="right">소계</td>
+                <td class="right">17,000,000</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="5" class="right">부가세 (10%)</td>
+                <td class="right">1,700,000</td>
+            </tr>
+            <tr class="sum-row">
+                <td colspan="5" class="right">합계</td>
+                <td class="right">18,700,000</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="notice-section">
+        <h3>안내</h3>
+        <table class="notice-table">
+            <tr>
+                <td class="label">결재 조건</td>
+                <td>현금이체, 카드결재</td>
+            </tr>
+            <tr>
+                <td class="label">전자세금메일</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="label">전화번호</td>
+                <td>010-9866-6306</td>
+            </tr>
+            <tr>
+                <td class="label">계좌번호</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="footer">
+        본 견적서는 발행일로부터 30일간 유효합니다.
+    </div>
+</body>
+
+</html>

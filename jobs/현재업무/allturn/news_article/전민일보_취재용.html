@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>올턴가연테크 보도자료 - 피지컬 AI 시대, 전북에서 혁신을 꿈꾸는 로봇 스타트업</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.8;
+      color: #333;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    header .badge {
+      display: inline-block;
+      background: #e53e3e;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    header .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .summary-box {
+      background: #f7fafc;
+      border-left: 4px solid #3182ce;
+      padding: 25px 30px;
+      margin: 30px;
+    }
+
+    .summary-box h2 {
+      color: #2d5a87;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .summary-box ul {
+      list-style: none;
+    }
+
+    .summary-box li {
+      padding: 8px 0;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .summary-box li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #38a169;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 30px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    section h2 {
+      color: #1a365d;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #3182ce;
+    }
+
+    section h3 {
+      color: #2d5a87;
+      font-size: 1.15rem;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+
+    section p {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    .image-container {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .image-caption {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .product-card {
+      background: #f7fafc;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .product-card h3 {
+      margin-top: 0;
+      color: #1a365d;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      padding: 10px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .spec-table th {
+      background: #edf2f7;
+      color: #2d5a87;
+      width: 35%;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #ebf8ff 0%, #e6fffa 100%);
+      border: 1px solid #90cdf4;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .highlight-box h4 {
+      color: #2b6cb0;
+      margin-bottom: 10px;
+    }
+
+    .need-support {
+      background: #fff5f5;
+      border: 1px solid #feb2b2;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .need-support h4 {
+      color: #c53030;
+      margin-bottom: 10px;
+    }
+
+    .vision-box {
+      background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+      border: 1px solid #9ae6b4;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .vision-box h4 {
+      color: #276749;
+      margin-bottom: 10px;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .tech-tag {
+      background: #edf2f7;
+      color: #4a5568;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      background: #1a365d;
+      color: white;
+      padding: 30px;
+    }
+
+    footer h2 {
+      color: white;
+      border-bottom-color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+    }
+
+    .contact-info {
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .contact-info p {
+      margin-bottom: 8px;
+    }
+
+    .contact-info strong {
+      color: #90cdf4;
+    }
+
+    .copyright {
+      text-align: center;
+      padding: 20px;
+      background: #0d1b2a;
+      color: #a0aec0;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.4rem;
+      }
+
+      section {
+        padding: 20px;
+      }
+
+      .summary-box {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 헤더 -->
+    <header>
+      <span class="badge">보도자료</span>
+      <h1>피지컬 AI 시대,<br>전북에서 혁신을 꿈꾸는 로봇 스타트업<br>올턴가연테크</h1>
+      <p class="subtitle">메카넘휠 + AI 결합한 차세대 이동로봇으로 지역 산업 혁신 선도</p>
+    </header>
+
+    <!-- 핵심 요약 -->
+    <div class="summary-box">
+      <h2>📌 핵심 요약</h2>
+      <ul>
+        <li><strong>"말하는 AI가 아니라 일하는 AI"</strong> - 현장에서 직접 움직이는 로봇 개발</li>
+        <li>용접하고, 운반하고, 반복 작업을 대신하는 <strong>현장형 인공지능</strong></li>
+        <li>사람을 대체하는 게 아니라 <strong>사람이 하기 힘든 일을 대신</strong></li>
+        <li>서울이 아닌 <strong>전북에서 시작해 전국으로</strong> - 지역 일자리 창출</li>
+      </ul>
+    </div>
+
+    <!-- 회사 소개 -->
+    <section>
+      <h2>어떤 회사인가요?</h2>
+      <div class="image-container">
+        <img src="images/IMG_4867.JPG" alt="올턴가연테크 사옥 전경">
+        <p class="image-caption">전북 소재 올턴가연테크 사옥</p>
+      </div>
+      <p>
+        <strong>올턴가연테크</strong>는 <strong>'말하는 AI'가 아니라 '일하는 AI'</strong>를 만드는 회사입니다.
+        화면 속에만 있는 AI가 아니라, 공장과 현장에서 실제로 움직이며
+        용접하고, 운반하고, 반복 작업을 수행하는 <strong>현장형 인공지능</strong>을 개발합니다.
+      </p>
+      <p>
+        올턴가연테크의 로봇은 <strong>촬영할 수 있고, 만질 수 있고, 바로 생산성으로 연결됩니다.</strong>
+        전진, 후진은 물론 옆으로도 움직이고, 제자리에서 빙글 도는 특수 바퀴(메카넘휠)를 달아
+        좁은 공간에서도 자유롭게 움직입니다.
+      </p>
+
+      <table class="spec-table">
+        <tr><th>설립</th><td>2023년</td></tr>
+        <tr><th>대표</th><td>임해진</td></tr>
+        <tr><th>소재지</th><td>전라북도</td></tr>
+        <tr><th>한마디로</th><td>현장에서 일하는 AI 로봇 개발</td></tr>
+      </table>
+    </section>
+
+    <!-- 제품 라인업 -->
+    <section>
+      <h2>무엇을 만드나요?</h2>
+
+      <!-- ODIN -->
+      <div class="product-card">
+        <h3>🏭 ODIN - 공장에서 일하는 로봇</h3>
+        <div class="image-container">
+          <img src="images/IMG_4866.JPG" alt="ODIN 메카넘휠 지게차">
+          <p class="image-caption">ODIN 지게차 프로토타입 (지금 바로 시연 가능)</p>
+        </div>
+        <p>
+          물류창고, 공장에서 물건을 나르는 <strong>똑똑한 지게차</strong>입니다.
+          좁은 통로에서도 옆으로 움직이고, 제자리에서 방향을 바꿀 수 있어
+          기존 지게차보다 <strong>40% 더 좁은 공간에서도 작업</strong>이 가능합니다.
+          사람을 인식하면 자동으로 멈추는 안전 기능도 갖췄습니다.
+        </p>
+        <table class="spec-table">
+          <tr><th>어디서 쓰나</th><td>물류창고, 공장, 조선소</td></tr>
+          <tr><th>특징</th><td>제자리 회전, 사람 인식 자동 정지</td></tr>
+          <tr><th>상태</th><td><strong>지금 바로 시연 가능</strong></td></tr>
+        </table>
+      </div>
+
+      <!-- ATOM -->
+      <div class="product-card">
+        <h3>🎓 ATOM - 배움을 위한 로봇</h3>
+        <div class="image-container">
+          <img src="images/IMG_4993.JPG" alt="ATOM 교육용 메카넘휠 플랫폼">
+          <p class="image-caption">ATOM 교육용 로봇 플랫폼</p>
+        </div>
+        <p>
+          대학교, 직업훈련원에서 <strong>로봇 기술을 배울 때 쓰는 교육용 로봇</strong>입니다.
+          게임 컨트롤러나 스마트폰으로 조종할 수 있고, AI 기능을 추가하면
+          사람을 따라다니거나 장애물을 피하는 것도 가능합니다.
+        </p>
+        <table class="spec-table">
+          <tr><th>어디서 쓰나</th><td>대학, 직업훈련원, 연구소</td></tr>
+          <tr><th>조종 방법</th><td>게임 컨트롤러, 스마트폰 앱</td></tr>
+          <tr><th>AI 기능</th><td>사람 따라다니기, 장애물 피하기</td></tr>
+        </table>
+      </div>
+
+      <!-- TITAN -->
+      <div class="product-card">
+        <h3>🌾 TITAN - 험한 곳에서 일하는 로봇</h3>
+        <p>
+          농장, 건설현장처럼 <strong>울퉁불퉁한 땅에서도 일하는 로봇</strong>입니다.
+          포장되지 않은 흙길, 경사진 곳에서도 넘어지지 않고 안정적으로 움직입니다.
+          <strong>한국건설기계연구원</strong>과 함께 개발 중입니다.
+        </p>
+        <table class="spec-table">
+          <tr><th>어디서 쓰나</th><td>농장, 스마트팜, 건설현장</td></tr>
+          <tr><th>특징</th><td>울퉁불퉁한 땅에서도 안정적 주행</td></tr>
+          <tr><th>상태</th><td>개발 중 (2026년 4월 완료 예정)</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- 왜 지금 중요한가 -->
+    <section>
+      <h2>왜 지금 이 기술이 중요한가요?</h2>
+
+      <h3>제조 현장의 두 가지 문제</h3>
+      <p>
+        지금 제조 현장은 두 가지 문제를 동시에 겪고 있습니다.
+        하나는 <strong>숙련 인력 부족</strong>, 다른 하나는 <strong>청년들이 현장을 기피한다</strong>는 점입니다.
+        사람이 없어서 기계를 못 돌리는 공장이 훨씬 많습니다.
+      </p>
+
+      <div class="highlight-box">
+        <h4>💡 올턴가연테크의 해법</h4>
+        <p style="margin-bottom: 0;">
+          사람을 대체하는 기술이 아니라,<br>
+          <strong>사람이 하기 힘든 일을 대신하고,</strong><br>
+          사람은 관리·운영·기술 직무로 이동하게 만드는 기술입니다.
+        </p>
+      </div>
+
+      <h3>AI가 일자리를 없앤다?</h3>
+      <p>
+        단기적으로는 그렇게 보일 수 있습니다. 하지만 현장에서 보면 현실은 다릅니다.
+        로봇이 들어오면 <strong>사라지는 일보다, 새로 생기는 일이 더 많습니다.</strong>
+      </p>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li>로봇 운영자</li>
+        <li>유지보수 엔지니어</li>
+        <li>자동화 기획 인력</li>
+      </ul>
+      <p>
+        결국 <strong>일의 형태가 바뀌는 것</strong>이지, 일자리가 사라지는 건 아닙니다.
+      </p>
+
+      <h3>현장 반응</h3>
+      <p>
+        처음에는 반신반의합니다.
+        하지만 <strong>실제로 움직이는 걸 보면 반응이 바로 바뀝니다.</strong>
+      </p>
+      <p style="font-style: italic; color: #2d5a87;">
+        "이건 보여주기용이 아니라 진짜 쓰겠다"<br>
+        — 현장에서 가장 많이 듣는 말
+      </p>
+    </section>
+
+    <!-- 청년실업 해법 -->
+    <section>
+      <h2>청년실업 문제에 어떤 해법을 제시하나요?</h2>
+
+      <p>
+        청년실업의 핵심은 '일자리가 없다'가 아니라
+        <strong>'미래가 보이는 일자리가 없다'</strong>는 점입니다.
+      </p>
+
+      <div class="highlight-box">
+        <h4>🚀 올턴가연테크가 만드는 일자리</h4>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+          <li>로봇을 <strong>직접 만지고</strong></li>
+          <li>AI를 <strong>현장에서 운영</strong>하며</li>
+          <li><strong>기술이 쌓이는 구조</strong>의 일자리</li>
+        </ul>
+        <p style="margin-top: 15px; margin-bottom: 0; font-weight: bold;">
+          서울로 가지 않아도, 전주에서도 미래 산업을 다룰 수 있습니다.
+        </p>
+      </div>
+
+      <div class="need-support">
+        <h4>⚠️ 지금 필요한 것</h4>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+          <li>현재 <strong>2명</strong>의 작은 팀</li>
+          <li>기술은 있으나 <strong>함께할 사람이 부족</strong></li>
+          <li>로봇 만드는 사람, AI 개발하는 사람 <strong>각 1명 채용 계획</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 왜 전북인가 -->
+    <section>
+      <h2>왜 전주, 전북에서 이 사업을 하나요?</h2>
+
+      <p>아주 명확한 이유가 있습니다.</p>
+
+      <div class="vision-box">
+        <h4>🌱 전북의 가능성</h4>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+          <li>전북에는 <strong>제조 현장이 있습니다</strong></li>
+          <li>아직 <strong>자동화되지 않은 곳이 많습니다</strong></li>
+          <li>새 기술을 <strong>받아들일 여지가 큽니다</strong></li>
+        </ul>
+        <p style="margin-top: 15px; margin-bottom: 0;">
+          첨단 기술은 꼭 수도권에서만 시작해야 한다는 생각을 깨고 싶습니다.<br>
+          <strong>지방에서 시작해 전국으로 확산되는 모델</strong>을 만들고 있습니다.
+        </p>
+      </div>
+
+      <h3>올턴가연테크가 그리는 미래</h3>
+      <p>
+        단순히 장비를 파는 회사가 아닙니다.
+      </p>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li>현장형 AI를 중심으로 <strong>제조 현장의 표준</strong>을 만들고</li>
+        <li><strong>기술 인력을 키우고</strong></li>
+        <li><strong>지역 산업 생태계</strong>를 만드는 것</li>
+      </ul>
+      <p style="font-size: 1.1rem; font-weight: bold; color: #1a365d;">
+        '사람을 대체하는 AI'가 아니라<br>
+        '사람을 살리는 AI'를 만드는 회사로 기억되고 싶습니다.
+      </p>
+    </section>
+
+    <!-- 마지막 메시지 -->
+    <section style="background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%); color: white;">
+      <h2 style="color: white; border-bottom-color: rgba(255,255,255,0.3);">마지막으로</h2>
+      <p style="font-size: 1.1rem; line-height: 2;">
+        AI는 더 이상 먼 미래가 아닙니다.<br>
+        그리고 그 변화는 책상 위가 아니라 <strong>현장에서 시작됩니다.</strong>
+      </p>
+      <p style="font-size: 1.1rem; line-height: 2;">
+        올턴가연테크는<br>
+        그 변화를 <strong>가장 현실적인 방식</strong>으로,<br>
+        그리고 <strong>지역에서부터</strong> 만들어가고 있습니다.
+      </p>
+    </section>
+
+    <!-- 연락처 -->
+    <footer>
+      <h2>언론 연락처</h2>
+      <div class="contact-info">
+        <p><strong>회사명:</strong> 올턴가연테크(Allturn)</p>
+        <p><strong>담당자:</strong> 임해진 대표이사</p>
+        <p><strong>이메일:</strong> [이메일]</p>
+        <p><strong>전화:</strong> [전화번호]</p>
+        <p><strong>주소:</strong> [회사 주소]</p>
+      </div>
+    </footer>
+
+    <div class="copyright">
+      <p>본 보도자료는 언론 보도를 위해 작성되었습니다.</p>
+      <p>추가 취재 및 인터뷰 요청은 상기 연락처로 문의 바랍니다.</p>
+      <p style="margin-top: 10px;">© 2026 올턴가연테크(Allturn). All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

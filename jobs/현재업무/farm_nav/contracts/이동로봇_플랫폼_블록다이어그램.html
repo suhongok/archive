@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>온실 관측용 이동로봇 플랫폼 블록다이어그램</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .diagram {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .block {
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            border: 2px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 180px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .block-title {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+
+        .block-content {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .control-block {
+            border-color: #e74c3c;
+        }
+
+        .control-block .block-title {
+            border-color: #e74c3c;
+        }
+
+        .motor-block {
+            border-color: #27ae60;
+            min-width: 140px;
+        }
+
+        .motor-block .block-title {
+            border-color: #27ae60;
+        }
+
+        .comm-block {
+            border-color: #9b59b6;
+        }
+
+        .comm-block .block-title {
+            border-color: #9b59b6;
+        }
+
+        .mech-block {
+            border-color: #f39c12;
+        }
+
+        .mech-block .block-title {
+            border-color: #f39c12;
+        }
+
+        .arrow-down {
+            text-align: center;
+            font-size: 30px;
+            color: #3498db;
+            margin: 15px 0;
+        }
+
+        .arrow-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .arrow-label {
+            background: #ecf0f1;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        .motor-layout {
+            display: grid;
+            grid-template-columns: 1fr 200px 1fr;
+            grid-template-rows: auto auto;
+            gap: 20px;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .motor-left {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .motor-right {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .chassis {
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chassis-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .chassis-features {
+            font-size: 12px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .tank-turn-indicator {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e74c3c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        .specs-table th, .specs-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .specs-table th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        .specs-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .specs-table td:first-child {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .badge-auto {
+            background: #27ae60;
+            color: white;
+        }
+
+        .badge-manual {
+            background: #f39c12;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌿 온실 관측용 이동로봇 플랫폼 블록다이어그램</h1>
+
+        <div class="diagram">
+            <!-- 통신 인터페이스 -->
+            <div class="section">
+                <div class="section-title">📡 통신 인터페이스</div>
+                <div class="row">
+                    <div class="block comm-block">
+                        <div class="block-title">블루투스 리모컨</div>
+                        <div class="block-content">
+                            이동 제어<br>
+                            방향/속도 조절<br>
+                            비상 정지
+                        </div>
+                    </div>
+                    <div class="block comm-block">
+                        <div class="block-title">USB 시리얼 통신</div>
+                        <div class="block-content">
+                            외부 제어 인터페이스<br>
+                            PC/Jetson 연동<br>
+                            자율주행 명령 수신
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-container">
+                <span class="arrow-label">명령 전송</span>
+                <span style="font-size: 24px; color: #9b59b6;">▼</span>
+                <span class="arrow-label">상태 피드백</span>
+            </div>
+
+            <!-- 메인 컨트롤러 -->
+            <div class="section">
+                <div class="section-title">🧠 메인 컨트롤러</div>
+                <div class="row">
+                    <div class="block control-block" style="min-width: 350px;">
+                        <div class="block-title">MCU (메인 제어 보드)</div>
+                        <div class="block-content">
+                            • 블루투스 모듈 통신 처리<br>
+                            • USB 시리얼 프로토콜 파싱<br>
+                            • 4채널 BLDC 모터 제어<br>
+                            • 탱크턴 알고리즘 연산<br>
+                            • 높낮이 액추에이터 제어
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-container">
+                <span style="font-size: 24px; color: #e74c3c;">▼</span>
+                <span class="arrow-label">PWM / CAN / RS485</span>
+                <span style="font-size: 24px; color: #e74c3c;">▼</span>
+            </div>
+
+            <!-- 구동부 -->
+            <div class="section">
+                <div class="section-title">⚙️ 구동부</div>
+
+                <div class="motor-layout">
+                    <!-- 왼쪽 모터 -->
+                    <div class="motor-left">
+                        <div class="block motor-block">
+                            <div class="block-title">BLDC #1</div>
+                            <div class="block-content">
+                                좌측 전방<br>
+                                + 드라이버
+                            </div>
+                        </div>
+                        <div class="block motor-block">
+                            <div class="block-title">BLDC #3</div>
+                            <div class="block-content">
+                                좌측 후방<br>
+                                + 드라이버
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 중앙 섀시 -->
+                    <div class="chassis">
+                        <div class="chassis-title">🚜 로봇 섀시</div>
+                        <div class="chassis-features">
+                            ✓ 4륜 독립 구동<br>
+                            ✓ 탱크턴 (스키드 스티어링)<br>
+                            ✓ 좌/우 바퀴 동기 제어
+                        </div>
+                        <div class="tank-turn-indicator">
+                            ↺ 좌회전: 우측 전진 + 좌측 후진 ↻
+                        </div>
+                    </div>
+
+                    <!-- 오른쪽 모터 -->
+                    <div class="motor-right">
+                        <div class="block motor-block">
+                            <div class="block-title">BLDC #2</div>
+                            <div class="block-content">
+                                우측 전방<br>
+                                + 드라이버
+                            </div>
+                        </div>
+                        <div class="block motor-block">
+                            <div class="block-title">BLDC #4</div>
+                            <div class="block-content">
+                                우측 후방<br>
+                                + 드라이버
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 기구부 조절 -->
+            <div class="section">
+                <div class="section-title">🔧 기구부 조절 시스템</div>
+                <div class="row">
+                    <div class="block mech-block">
+                        <div class="block-title">높낮이 조절 <span class="badge badge-auto">자동</span></div>
+                        <div class="block-content">
+                            리니어 액추에이터<br>
+                            전동 승강 시스템<br>
+                            MCU 자동 제어<br>
+                            <br>
+                            <em style="color: #27ae60;">▲▼ 센서함체 높이 조절</em>
+                        </div>
+                    </div>
+                    <div class="block mech-block">
+                        <div class="block-title">바퀴 측면 조절 <span class="badge badge-manual">수동</span></div>
+                        <div class="block-content">
+                            윤거(트랙폭) 조절<br>
+                            볼트 체결 방식<br>
+                            슬롯 홀 가이드<br>
+                            <br>
+                            <em style="color: #f39c12;">◀▶ 온실 폭 맞춤 조절</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 범례 -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fff; border-color: #9b59b6;"></div>
+                    <span>통신 모듈</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fff; border-color: #e74c3c;"></div>
+                    <span>제어 장치</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fff; border-color: #27ae60;"></div>
+                    <span>BLDC 모터</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fff; border-color: #f39c12;"></div>
+                    <span>기구부</span>
+                </div>
+            </div>
+
+            <!-- 사양표 -->
+            <table class="specs-table">
+                <tr>
+                    <th colspan="3" style="text-align: center;">📋 이동로봇 플랫폼 주요 사양</th>
+                </tr>
+                <tr>
+                    <td>구동 방식</td>
+                    <td>4륜 독립 구동 (탱크턴/스키드 스티어링)</td>
+                    <td>제자리 회전 가능</td>
+                </tr>
+                <tr>
+                    <td>모터</td>
+                    <td>BLDC 모터 × 4</td>
+                    <td>각 바퀴 독립 제어</td>
+                </tr>
+                <tr>
+                    <td>이동 제어</td>
+                    <td>블루투스 리모컨</td>
+                    <td>무선 수동 조작</td>
+                </tr>
+                <tr>
+                    <td>외부 제어</td>
+                    <td>USB 시리얼 통신</td>
+                    <td>PC/자율주행 시스템 연동</td>
+                </tr>
+                <tr>
+                    <td>높낮이 조절</td>
+                    <td>전동 액추에이터 <span class="highlight">자동</span></td>
+                    <td>센서 함체 높이 조절</td>
+                </tr>
+                <tr>
+                    <td>바퀴 측면(윤거)</td>
+                    <td>슬롯 홀 방식 <span class="highlight">수동</span></td>
+                    <td>온실 통로 폭 맞춤</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

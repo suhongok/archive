@@ -1,0 +1,7 @@
+# Large files
+jobs/현재업무/allturn/news_article/images.zip
+jobs/현재업무/allturn/news_article/images/IMG_4848.MOV
+
+# General large file patterns
+*.MOV
+*.zip
